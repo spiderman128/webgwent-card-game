@@ -1,0 +1,11 @@
+.Hand {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: auto;
+    height: 25%;
+    min-width: 75%;
+    background: url("../img/hand-bg.png") no-repeat;
+    border: 1px solid #B88846;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-width='2' %3E%3Cpath d='M1 1h73v73H1z'/%3E%3Cpath d='M8 8h59v59H8z'/%3E%3Cpath /%3E%3C/g%3E%3Cg fill='%23B88846'%3E%3Ccircle /%3E%3Ccircle /%3E%3Ccircle /%3E%3Ccircle /%3E%3C/g%3E%3C/svg%3E") 15;
+}

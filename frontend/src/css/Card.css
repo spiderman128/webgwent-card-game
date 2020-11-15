@@ -1,0 +1,22 @@
+.Card {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.hand-card:hover {
+    border: 1px solid red;
+}
+
+.Card span {
+    position: absolute;
+}
+
+.Card img {
+    display: flex;
+    height: 100%;
+    max-width: 4rem;
+}
+

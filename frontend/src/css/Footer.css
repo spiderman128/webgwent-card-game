@@ -1,0 +1,45 @@
+.Footer {
+    background-color: rgb(20, 20, 20);
+    width: 100%;
+}
+
+.Footer-social {
+    padding-top: 1em;
+}
+
+.Footer-social a:first-child {
+    margin-left: 0;
+}
+
+.Footer-social p {
+    display: inline-block;
+    color: #9190a5;
+    font-size: 16px;
+    padding-top: 4px;
+}
+
+.Footer-social a {
+    display: -ms-inline-flex;
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 32px;
+    height: 32px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    margin-left: 13px;
+    transition: all 0.3s;
+}
+
+.Footer-social a:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.Footer-copyright p {
+    margin: 0;
+    padding: 1em 0;
+    color: rgb(255, 255, 255);
+}

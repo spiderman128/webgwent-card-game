@@ -1,0 +1,77 @@
+.Player {
+    display: flex;
+    width: 100%;
+    position: relative;
+    color: rgb(188,132,68);
+    height: 6rem;
+    padding: 0.5rem 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.91) 0%, rgba(0, 0, 0, 0.87) 49%, rgba(0, 0, 0, 0.62) 100%, rgba(0, 0, 0, 1) 100%);
+}
+
+.Player-icon {
+    box-sizing: border-box;
+    float: left;
+    height: 100%;
+    border: 3px rgb(255,255,255) solid;
+    border-radius: 50%;
+    margin-left: 4rem;
+}
+
+.Player-info-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.Player-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.Player-info-username {
+    padding: 0.3rem;
+    font-weight: 800;
+}
+
+.Player-info-faction {
+    text-transform: capitalize;
+}
+
+.Player-stats {
+    padding: 0.5rem;
+    display: flex;
+}
+
+.Player-hand-icon {
+    height: 1.5em;
+}
+
+.Player-stats-lives {
+    margin-left: 1rem;
+}
+
+.Player-stats-lives-ruby-active, .Player-stats-lives-ruby-disabled {
+    height: 2rem;
+}
+
+.Player-score {
+    z-index: 2;
+    position: absolute;
+    color: rgb(255,255,255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+    text-align: center;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color:rgb(188,132,68);
+
+}
+
+.Player-opponent {
+    justify-self: end;
+}

@@ -1,0 +1,81 @@
+.BoardSide {
+    display: flex;
+    position: relative;
+    width: 100%;
+}
+
+.side-fields {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.opponent-side-fields {
+    justify-content: end;
+}
+
+.you {
+    height: 55%;
+}
+
+.you .BoardField {
+    height: 25%;
+}
+
+.opponent .BoardField {
+    height: 30%;
+}
+
+.opponent {
+    height: 45%;
+}
+
+.cards-fields {
+    width: 15%;
+    display: flex;
+}
+
+.you-cards-fields {
+    margin-bottom: 2rem;
+    align-items: flex-end;
+}
+
+.opponent-cards-fields {
+    margin-top: 2rem;
+}
+
+.waiting {
+    pointer-events: none;
+}
+
+
+  
+.modal-window {
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.25);
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    pointer-events: none;
+    transition: all 0.3s;
+}
+
+.modal-window > div {
+      width: 400px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 2em;
+      background: #ffffff;
+}
+
+  
+  
+
+
+
+  
+  

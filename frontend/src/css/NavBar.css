@@ -1,0 +1,63 @@
+.NavBar {
+    position: absolute;
+    width: 100%;
+    padding: 0.5em 0;
+    opacity: 0;
+    z-index: 1;
+    transition: all 0.5s ease-in-out;
+}
+
+.NavBar:hover {
+    opacity: 1;
+    background: rgb(0, 0, 0);
+    box-shadow: 0 0 9px 3px rgba(245, 124, 26, 0.4);
+}
+
+.NavBar-links {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.NavBar-links a:hover {
+    color: rgb(255, 255, 255);
+    transition: all 0.3s ease-in-out;
+    text-shadow: 0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px rgb(255, 214, 31),
+        0 0 30px rgb(255, 214, 31),
+        0 0 40px rgb(255, 214, 31),
+        0 0 55px rgb(255, 214, 31),
+        0 0 75px rgb(255, 214, 31);
+}
+
+.NavBar-links a {
+    display: inline-block;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    text-transform: uppercase;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    margin: 1em 1.5em;
+    transition: all 0.3s ease-in-out;
+}
+
+.NavBar-links-auth {
+    position: absolute;
+    right: 0;
+    margin: auto 4vw;
+}
+
+.active {
+    color: rgb(255, 255, 255) !important;
+    text-shadow: 0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px rgb(255, 214, 31),
+        0 0 30px rgb(255, 214, 31),
+        0 0 40px rgb(255, 214, 31),
+        0 0 55px rgb(255, 214, 31),
+        0 0 75px rgb(255, 214, 31);
+}

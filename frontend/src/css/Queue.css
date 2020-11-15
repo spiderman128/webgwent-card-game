@@ -1,0 +1,128 @@
+.Queue {
+    display: flex;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    overflow: hidden;
+}
+
+.Queue-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+    height: 80%;
+    margin: 5% 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+}
+
+.Queue-searching p {
+    color: rgb(255, 255, 255);
+}
+
+
+
+.Queue-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: #202020;
+    margin: 20px auto;
+    width: 200px;
+    height: 50px;
+    overflow: hidden;
+    text-align: center;
+    transition: .2s;
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, .2);
+}
+
+
+.Queue-button-text-main {
+    color: white;
+    text-align: center;
+    margin-left: 3%;
+    transition: .3s;
+}
+
+
+.Queue-button::before {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 100%;
+    width: 33%;
+    left: -50%;
+    transition: .3s;
+}
+
+.Queue-button-start::before {
+    content: '';
+    background: #1e7c16;
+}
+
+.Queue-button-cancel::before {
+    content: '';
+    background: #681616;
+}
+
+.Queue-button:hover:before {
+
+    left: -5%;
+}
+
+.Queue-button:hover .Queue-button-text-main {
+    /*When hovering over .button change .btnText*/
+    margin-left: 20%;
+}
+
+.Queue-button:active {
+    /*Clicked and held*/
+    box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.3);
+}
+
+
+
+
+.Queue-loading {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.Queue-loading div {
+    position: absolute;
+    border: 4px solid #fff;
+    opacity: 1;
+    border-radius: 50%;
+    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+
+.Queue-loading div:nth-child(2) {
+    animation-delay: -0.5s;
+}
+
+@keyframes lds-ripple {
+    0% {
+        top: 36px;
+        left: 36px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+
+    100% {
+        top: 0px;
+        left: 0px;
+        width: 72px;
+        height: 72px;
+        opacity: 0;
+    }
+}

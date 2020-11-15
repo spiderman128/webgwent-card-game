@@ -1,0 +1,73 @@
+.fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 0 auto;
+    height: 100%;
+    width: 65%;
+}
+
+.opponent-fields {
+    flex-direction: column-reverse;
+}
+
+.BoardField {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 75%;
+    border: 1px solid #B88846;
+    border-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='75' height='75'%3E%3Cg fill='none' stroke='%23FFFFFF' stroke-width='2' %3E%3Cpath d='M1 1h73v73H1z'/%3E%3Cpath d='M8 8h59v59H8z'/%3E%3Cpath /%3E%3C/g%3E%3Cg fill='%23B88846'%3E%3Ccircle /%3E%3Ccircle /%3E%3Ccircle /%3E%3Ccircle /%3E%3C/g%3E%3C/svg%3E") 15;
+}
+
+.siege > .BoardField-cards {
+    background: url("../img/siege-field.png") no-repeat;
+    background-size: cover;
+}
+
+.ranged > .BoardField-cards {
+    background: url("../img/ranged-field.png") no-repeat;
+    background-size: cover;
+}
+
+.infantry > .BoardField-cards {
+    background: url("../img/infantry-field.png") no-repeat;
+    background-size: cover;
+}
+
+.BoardField-cards {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+}
+
+
+.BoardField-horn {
+    display: inline-block;
+    background: url("../img/horn-icon.png") no-repeat;
+    background-size: cover;
+    border: 1px solid white;
+    height: 100%;
+    width: 20%;
+}
+
+.BoardField-score {
+    position: absolute;
+    left: -2.5rem;  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    font-weight: 600;
+    font-size: 24px;
+    border-radius: 50%;
+    background: #ffffff;
+}
+
+.BoardField .Card {
+    height: 100%;
+    width: auto;
+}
