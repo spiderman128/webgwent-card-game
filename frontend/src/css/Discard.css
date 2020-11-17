@@ -1,5 +1,35 @@
 .Discard {
+    background: url("../img/cards-bg.png");
+    background-size: cover;
+    position: relative;
     width: 50%;
     height: 10rem;
-    border: 1px solid red;
+}
+
+.Discard-cards {
+    height: 100%;
+}
+
+.Discard-cards > img {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    height: 90%;
+}
+
+.Discard-quantity {    
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    font-weight: 600;
+    font-size: 18px;
+    border-radius: 50%;
+    background: #ffffff;
 }

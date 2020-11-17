@@ -3,8 +3,12 @@ import Card from "./Card";
 import "../../css/Hand.css";
 import SocketContext from "../../SocketContext";
 
-function Hand({ player, cards }) {
+function Hand({ player, cards, setCurrentCard }) {
   const { socket } = useContext(SocketContext);
+
+  const selectCard = (e, card) => {
+    setCurrentCard(card);
+  };
 
   const playCard = (e, card) => {
     socket.emit("playCard", card);
@@ -18,7 +22,7 @@ function Hand({ player, cards }) {
           key={`${player}-${card.name}-${idx}`}
           id={card.id}
           card={card}
-          onClick={(e) => playCard(e, card)}
+          onClick={(e) => selectCard(e, card)}
         />
       ))}
     </div>

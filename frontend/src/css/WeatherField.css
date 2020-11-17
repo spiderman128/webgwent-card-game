@@ -1,19 +1,13 @@
 .WeatherField {
     display: flex;
     align-items: center;
-    background: url("../img/weather_bg.jpg") no-repeat;
+    background: url("../img/weather_bg.png") no-repeat;
     background-size: cover;
     background-position: center center;
     width: 80%;
     height: 30%;
     border: 1px solid black;
 
-    border: solid 0.5em #eee;
-    border-bottom-color: #fff;
-    border-left-color: #eee;
-    border-radius: 1px;
-    border-right-color: #eee;
-    border-top-color: #ddd;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, .25) inset, 0 5px 10px 5px rgba(0, 0, 0, .25);
     box-sizing: border-box;
     margin-top: 5%;

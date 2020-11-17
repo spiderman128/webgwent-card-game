@@ -12,6 +12,7 @@ function Room() {
   useEffect(() => {
     setRoom(room);
     testRefresh();
+    window.scrollTo({ top: 9999, behavior: "smooth" });
   }, [room]);
 
   const testRefresh = () => {
@@ -25,9 +26,38 @@ function Room() {
   return user.uid ? (
     <div className="Room">
       <div className="Room-header">
-        <h3>Room header; Room: {room}</h3>
+        <div class="Room-menu">
+          <input type="checkbox" />
+          <div class="Room-hamburger">
+            <div class="Room-dots">
+              <span class="first"></span>
+              <span class="second"></span>
+              <span class="third"></span>
+            </div>
+          </div>
+          <div class="Room-action-items-bar">
+            <div class="Room-action-items">
+              <span class="first_item">
+                <button onClick={testRefresh}>REFRESH</button>
+                <i class="material-icons">favorite</i>
+              </span>
+              <span class="second_item">
+                <button onClick={pass}>PASS</button>
+                <i class="material-icons">chat</i>
+              </span>
+              <span class="third_item">
+                <i class="material-icons">get_app</i>
+              </span>
+              <span class="fourth_item">
+                <i class="material-icons">share</i>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* <h3>Room header; Room: {room}</h3>
         <button onClick={testRefresh}>Emit refresh!</button>
-        <button onClick={pass}>Pass</button>
+        <button onClick={pass}>Pass</button> */}
       </div>
       <Board />
     </div>

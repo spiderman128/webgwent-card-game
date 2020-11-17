@@ -1,8 +1,10 @@
 .Deck {
+    background: url("../img/cards-bg.png");
+    background-size: cover;
     position: relative;
     width: 50%;
     height: 10rem;
-    border: 1px solid red;
+    margin-right: 1rem;
 }
 
 .Deck-cards {
@@ -14,7 +16,7 @@
     left: 0;
     right: 0;
     margin: auto;
-    height: 100%;
+    height: 90%;
 }
 
 .Deck-quantity {    
