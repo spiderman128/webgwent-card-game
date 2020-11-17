@@ -34,7 +34,7 @@ class PlayerSide {
 
     globalThis.io.sockets.connected[this.player.socketId].on("passing", () => {
       this.pass();
-      this.board.refreshBoard();
+      this.board.updateBoard();
     });
   }
 
@@ -149,7 +149,7 @@ class PlayerSide {
 
   clearFields() {
     for (let key in this.fields) {
-      this.addToDiscard(this.fields[key].reset());
+      this.discardPile = this.discardPile.concat(this.fields[key].reset());
     }
   }
 

@@ -118,14 +118,6 @@ class Player {
 
       socket.emit("update", self);
     });
-
-    socket.on("request:gameLoaded", function (data) {
-      globalThis.connections.rooms[data.roomId].setReady(self);
-    });
-
-    socket.on("set:deck", function (data) {
-      if (data.deck) self.setDeck(data.deck);
-    });
   }
 }
 
