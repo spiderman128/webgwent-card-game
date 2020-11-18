@@ -10,7 +10,6 @@ class PlayerSide {
     this.player = player;
     this.deck = new Deck(this.side, 1);
     this.hand = new Hand();
-    this.initializeDeck();
 
     this.fields = {};
     this.fields.infantry = new BoardField(this);
@@ -20,10 +19,12 @@ class PlayerSide {
 
     this.score = 0;
     this.lives = 2;
-    this.isWaiting = true;
+    this.isWaiting = false;
     this.passed = false;
 
     this.opponent = null;
+
+    this.ready = false;
 
     globalThis.io.sockets.connected[this.player.socketId].on(
       "playCard",
@@ -35,6 +36,16 @@ class PlayerSide {
     globalThis.io.sockets.connected[this.player.socketId].on("passing", () => {
       this.pass();
       this.board.updateBoard();
+    });
+
+    globalThis.io.sockets.connected[this.player.socketId].on("ready", () => {
+      this.setReady();
+
+      if (this.board.bothReady()) {
+        this.board.send("startGame");
+        this.board.fetchDecks();
+        this.board.start();
+      }
     });
   }
 
@@ -66,9 +77,13 @@ class PlayerSide {
     const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
     await this.deck.fetchCards();
-    await delay(3000);
+
+    while (!this.deck.getDeckLength()) {
+      await delay(500);
+    }
 
     this.initializeHand();
+    this.board.updateBoard();
   }
 
   initializeHand() {
@@ -81,6 +96,10 @@ class PlayerSide {
 
   isWaiting() {
     return this.isWaiting;
+  }
+
+  setReady() {
+    this.isWaiting = true;
   }
 
   pass() {

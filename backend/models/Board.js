@@ -35,8 +35,6 @@ class Board {
     this.side2 = new PlayerSide(this.player2, "player2", this);
     this.side1.opponent = this.player2;
     this.side2.opponent = this.player1;
-
-    this.start();
   }
 
   start() {
@@ -63,6 +61,15 @@ class Board {
 
     this.send("updateBoard", p1, this.side1);
     this.send("updateBoard", p2, this.side2);
+  }
+
+  bothReady() {
+    return this.side1.isWaiting && this.side2.isWaiting;
+  }
+
+  fetchDecks() {
+    this.side1.initializeDeck();
+    this.side2.initializeDeck();
   }
 
   switchTurn() {
