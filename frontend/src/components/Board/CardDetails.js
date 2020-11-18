@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import SocketContext from "../../SocketContext";
 import "../../css/CardDetails.css";
 
@@ -14,7 +14,7 @@ function CardDetails({ card, setCurrentCard }) {
   return card ? (
     <div className="CardDetails">
       <img src={card.pic} />
-      <button class="btn" onClick={playCard}>
+      <button className="btn" onClick={playCard}>
         PLAY
       </button>
     </div>

@@ -7,6 +7,7 @@ import Hand from "./Hand";
 import Discard from "./Discard";
 import Deck from "./Deck";
 import CardDetails from "./CardDetails";
+import PlayerPanel from "./PlayerPanel";
 
 function BoardSide({ player, PLAYER, sideInfo, isWaiting }) {
   const [currentCard, setCurrentCard] = useState();
@@ -18,6 +19,7 @@ function BoardSide({ player, PLAYER, sideInfo, isWaiting }) {
       <div className={`side-fields ${PLAYER}-side-fields`}>
         {PLAYER === "you" ? <WeatherField /> : <></>}
         <Player side={PLAYER} user={player} info={sideInfo} />
+        {PLAYER === "you" ? <PlayerPanel /> : <></>}
       </div>
 
       <div className={`fields ${PLAYER}-fields`}>
@@ -55,7 +57,11 @@ function BoardSide({ player, PLAYER, sideInfo, isWaiting }) {
       <div className={`cards-fields ${PLAYER}-cards-fields`}>
         <Discard side={PLAYER} user={player} cards={sideInfo.discard} />
         <Deck side={PLAYER} user={player} cards={sideInfo.deck} />
-        <CardDetails card={currentCard} setCurrentCard={setCurrentCard} />
+        {PLAYER == "you" ? (
+          <CardDetails card={currentCard} setCurrentCard={setCurrentCard} />
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

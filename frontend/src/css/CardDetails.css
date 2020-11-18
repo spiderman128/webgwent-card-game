@@ -19,20 +19,17 @@
   text-transform: uppercase;
   margin-top: 1rem;
   border-radius: 2rem;
-}
-  
-.btn {
   text-decoration: none;
   border: 1px solid #ffffff;
   position: relative;
   overflow: hidden;
 }
   
-.btn:hover {
+.play-btn:hover {
   box-shadow: 1px 1px 25px 10px rgba(255, 195, 29, 0.4)
 }
   
-.btn:before {
+.play-btn:before {
   content: "";
   position: absolute;
   top: 0;
@@ -48,6 +45,16 @@
   transition: all 650ms;
 }
   
-.btn:hover:before {
+.play-btn:hover:before {
   left: 100%;
+}
+
+.ready-btn {
+  margin-top: 5rem;
+  padding: 1rem 4rem;
+  border-radius: 0;
+}
+
+.ready {
+  background-color: green;
 }
