@@ -6,8 +6,7 @@ import rubyDisabled from "../../img/ruby-disabled.png";
 import "../../css/Player.css";
 
 function Player({ side, user, info }) {
-  console.log(side);
-  console.log(info);
+  console.log(user);
   const lives = [];
 
   for (let i = 0; i < info.lives; i++) {
@@ -19,6 +18,7 @@ function Player({ side, user, info }) {
   for (let i = 0; i < 2 - info.lives; i++) {
     lives.push(
       <img
+        key={i}
         className="Player-stats-lives-ruby-disabled"
         src={rubyDisabled}
       ></img>
@@ -30,7 +30,7 @@ function Player({ side, user, info }) {
       <img className="Player-icon" src={icon}></img>
       <div className="Player-info-section">
         <div className="Player-info">
-          <span className="Player-info-username">{user.uid}</span>
+          <span className="Player-info-username">{user.username}</span>
           <span className="Player-info-faction">{info.faction}</span>
         </div>
         <div className="Player-stats">

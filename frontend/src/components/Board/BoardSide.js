@@ -12,9 +12,9 @@ import PlayerPanel from "./PlayerPanel";
 function BoardSide({ player, PLAYER, sideInfo, isWaiting }) {
   const [currentCard, setCurrentCard] = useState();
 
-  console.log(sideInfo);
+  console.log(player);
 
-  return (
+  return player ? (
     <div className={`BoardSide ${PLAYER} ${isWaiting ? "waiting" : ""}`}>
       <div className={`side-fields ${PLAYER}-side-fields`}>
         {PLAYER === "you" ? <WeatherField /> : <></>}
@@ -64,6 +64,8 @@ function BoardSide({ player, PLAYER, sideInfo, isWaiting }) {
         )}
       </div>
     </div>
+  ) : (
+    <></>
   );
 }
 

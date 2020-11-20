@@ -1,0 +1,101 @@
+.Profile {
+    height: 100%;
+}
+
+ .Profile-container {
+     display: flex;
+     justify-content: center;
+	 align-items: center;
+	 width: 100%;
+	 height: 100%;
+     background: url("../img/profile-bg.jpg");
+}
+
+ .profile-card {
+	 margin: auto;
+	 box-shadow: 0px 8px 60px -10px rgba(255, 255, 255, 0.6);
+	 background: #fff;
+	 border-radius: 12px;
+	 max-width: 50%;
+}
+ .profile-card__img {
+	 width: 25%;
+	 height: 25%;
+	 margin-left: auto;
+	 margin-right: auto;
+	 transform: translateY(-50%);
+	 border-radius: 50%;
+	 box-shadow: 0px 5px 50px 0px #ffdd1b, 0px 0px 0px 7px rgba(179, 25, 19, 0.5);
+}
+ .profile-card__img img {
+	 display: block;
+	 width: 100%;
+	 height: 100%;
+	 object-fit: cover;
+	 border-radius: 50%;
+}
+ .profile-card__cnt {
+    transform: translateY(-15%);
+	text-align: center;
+	padding: 0 5% 0 5%;
+	transition: all 0.3s;
+}
+ .profile-card__name {
+	 font-weight: 700;
+	 font-size: 42px;
+	 margin-bottom: 15px;
+}
+ .profile-card__txt strong {
+	 font-weight: 700;
+}
+ .profile-card-loc {
+	 justify-content: space-between;
+	 align-items: center;
+	 font-size: 18px;
+	 font-weight: 600;
+	 margin-bottom: 10%;
+}
+ .profile-card-loc__icon {
+	 display: inline-flex;
+	 font-size: 27px;
+	 margin-right: 10px;
+}
+ .profile-card-inf {
+	 display: flex;
+	 justify-content: center;
+	 flex-wrap: wrap;
+	 align-items: flex-start;
+	 margin-top: 35px;
+}
+ .profile-card-inf__item {
+	 min-width: 150px;
+}
+
+ .profile-card-inf__title {
+	 font-weight: 700;
+	 font-size: 27px;
+	 color: #324e63;
+}
+ .profile-card-inf__txt {
+	 font-weight: 500;
+	 margin-top: 7px;
+}
+ .profile-card__button.button--blue {
+	 background: linear-gradient(45deg, #1da1f2, #0e71c8);
+	 box-shadow: 0px 4px 30px rgba(19, 127, 212, 0.4);
+}
+ .profile-card__button.button--blue:hover {
+	 box-shadow: 0px 7px 30px rgba(19, 127, 212, 0.75);
+}
+ .profile-card__button.button--orange {
+	 background: linear-gradient(45deg, #d5135a, #f05924);
+	 box-shadow: 0px 4px 30px rgba(223, 45, 70, 0.35);
+}
+ .profile-card__button.button--orange:hover {
+	 box-shadow: 0px 7px 30px rgba(223, 45, 70, 0.75);
+}
+ .profile-card__button.button--gray {
+	 box-shadow: none;
+	 background: #dcdcdc;
+	 color: #142029;
+}

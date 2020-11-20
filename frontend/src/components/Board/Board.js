@@ -9,7 +9,7 @@ function Board() {
   const [isWaiting, setIsWaiting] = useState(false);
   const [sideInfo, setSideInfo] = useState({
     info: {
-      name: undefined,
+      username: undefined,
       lives: 0,
       score: 0,
       hand: [],
@@ -23,7 +23,7 @@ function Board() {
       },
     },
     opponent: {
-      name: undefined,
+      username: undefined,
       lives: 0,
       score: 0,
       hand: 0,
@@ -39,12 +39,15 @@ function Board() {
     },
   });
 
+  console.log(sideInfo);
+
   useEffect(() => {
-    socket.on("playerLeft", (message) => {
-      setOpponentLeft(true);
-      console.log(message);
-    });
+    // socket.on("playerLeft", (message) => {
+    //   setOpponentLeft(true);
+    //   console.log(message);
+    // });
     socket.on("updateBoard", (data) => {
+      console.log("REFRESHING");
       setSideInfo(data);
       setIsWaiting(data.info.isWaiting);
     });
@@ -56,6 +59,7 @@ function Board() {
       console.log("WE HAVE A WINNER");
       console.log(message.winner);
     });
+    socket.emit("refresh");
   }, []);
 
   return (

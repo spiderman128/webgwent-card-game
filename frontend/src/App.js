@@ -1,18 +1,23 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./css/App.css";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "./Routes";
 import SocketContext from "./SocketContext";
+import { LoggedInContext } from "./LoggedInContext";
 import io from "socket.io-client";
-import Cookies from "universal-cookie";
 
-const socket = io.connect("http://localhost:3001");
+const socket = io.connect("http://localhost:3001", {
+  query: `token=${localStorage.getItem("_token")}`,
+});
 
 function App() {
   const [user, setUser] = useState({});
   const [room, setRoom] = useState();
+  const { login } = useContext(LoggedInContext);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    login();
+
     socket.on("connected", (resp) => {
       let u = resp;
       console.log(resp);
@@ -23,14 +28,6 @@ function App() {
       console.log(resp);
       let u = resp;
       setUser(u);
-    });
-
-    socket.on("setCookie", (resp) => {
-      const cookie = new Cookies();
-
-      cookie.set("uid", resp, {
-        path: "/",
-      });
     });
   }, []);
 

@@ -26,30 +26,30 @@ function Room() {
   return user.uid ? (
     <div className="Room">
       <div className="Room-header">
-        <div class="Room-menu">
+        <div className="Room-menu">
           <input type="checkbox" />
-          <div class="Room-hamburger">
-            <div class="Room-dots">
-              <span class="first"></span>
-              <span class="second"></span>
-              <span class="third"></span>
+          <div className="Room-hamburger">
+            <div className="Room-dots">
+              <span className="first"></span>
+              <span className="second"></span>
+              <span className="third"></span>
             </div>
           </div>
-          <div class="Room-action-items-bar">
-            <div class="Room-action-items">
-              <span class="first_item">
+          <div className="Room-action-items-bar">
+            <div className="Room-action-items">
+              <span className="first_item">
                 <button onClick={testRefresh}>REFRESH</button>
-                <i class="material-icons">favorite</i>
+                <i className="material-icons">favorite</i>
               </span>
-              <span class="second_item">
+              <span className="second_item">
                 <button onClick={pass}>PASS</button>
-                <i class="material-icons">chat</i>
+                <i className="material-icons">chat</i>
               </span>
-              <span class="third_item">
-                <i class="material-icons">get_app</i>
+              <span className="third_item">
+                <i className="material-icons">get_app</i>
               </span>
-              <span class="fourth_item">
-                <i class="material-icons">share</i>
+              <span className="fourth_item">
+                <i className="material-icons">share</i>
               </span>
             </div>
           </div>

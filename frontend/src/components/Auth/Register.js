@@ -1,46 +1,46 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { Redirect, Link, useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { LoggedInContext } from "../../LoggedInContext";
 import { Animated } from "react-animated-css";
 import NavBar from "../NavBar";
+import Api from "../../Api";
 import "../../css/Register.css";
 
 function Register() {
   const history = useHistory();
-  const [status, setStatus] = useState({});
-
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    email: "",
-  });
-
-  const { setUser, loggedIn, setLoggedIn } = useContext(LoggedInContext);
+  const { register, handleSubmit, errors } = useForm();
+  const { setUser, loggedIn, setLoggedIn, setToken } = useContext(
+    LoggedInContext
+  );
 
   if (loggedIn) {
     return <Redirect to="/" />;
   }
 
-  async function register() {}
+  async function registerUser(data) {
+    console.log("I am called");
+    let tkn;
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((formData) => ({
-      ...formData,
-      [name]: value,
-    }));
-  };
+    try {
+      tkn = await Api.register(data);
+    } catch (err) {
+      console.log("PIZDA!");
+      return;
+    }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    register();
+    setToken(tkn);
 
-    // e.target.username.value = "";
-    // e.target.password.value = "";
-    // e.target.first_name.value = "";
-    // e.target.last_name.value = "";
-    // e.target.email.value = "";
+    const user = await Api.getUser(data.username);
+    setUser(user);
+    setLoggedIn(true);
+
+    history.push("/");
   }
+
+  const onSubmit = (data) => {
+    registerUser(data);
+  };
 
   return (
     <div className="Register">
@@ -57,34 +57,27 @@ function Register() {
           </div>
         </div>
         <div className="Register-right">
-          <form className="Register-form" onSubmit={handleSubmit}>
+          <form className="Register-form" onSubmit={handleSubmit(onSubmit)}>
             <label htmlFor="username">Username</label>
-            {status.username
-              ? Object.keys(status.username).map((m) => (
-                  <span key={m} className="error">
-                    {status.username[m]}
-                  </span>
-                ))
-              : null}
-            <input onChange={handleChange} type="text" name="username" />
+
+            <input
+              type="text"
+              name="username"
+              ref={register({ required: true })}
+            />
+
             <label htmlFor="password">Password</label>
-            {status.password
-              ? Object.keys(status.password).map((m) => (
-                  <span key={m} className="error">
-                    {status.password[m]}
-                  </span>
-                ))
-              : null}
-            <input onChange={handleChange} type="password" name="password" />
+            <input
+              type="password"
+              name="password"
+              ref={register({ required: true })}
+            />
             <label htmlFor="email">Email</label>
-            {status.email
-              ? Object.keys(status.email).map((m) => (
-                  <span key={m} className="error">
-                    {status.email[m]}
-                  </span>
-                ))
-              : null}
-            <input onChange={handleChange} type="text" name="email" />
+
+            <input type="text" name="email" ref={register()} />
+            {errors.exampleRequired && (
+              <span className="error">This field is required</span>
+            )}
             <button id="Register-submit" type="submit" name="button">
               Register
             </button>
