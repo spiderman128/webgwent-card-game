@@ -11,7 +11,6 @@ Config.WebServer = {
 
 Config.SECRET = process.env.SECRET_KEY || "test";
 
-Config.DB_URI =
-  process.env.DATABASE_URL || "postgresql://postgres:password@localhost/gwent";
+Config.DB_URI = "postgresql://postgres:password@localhost/gwent";
 
 module.exports = Config;

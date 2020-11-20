@@ -29,7 +29,7 @@ class Matchmaker {
       user.opponent = {
         uid: found.uid,
         socketId: found.socketId,
-        name: found.name,
+        username: found.username,
         rating: found.rating,
         wins: found.wins,
         losses: found.losses,
@@ -38,7 +38,7 @@ class Matchmaker {
       found.opponent = {
         uid: user.uid,
         socketId: user.socketId,
-        name: user.name,
+        username: user.username,
         rating: user.rating,
         wins: user.wins,
         losses: user.losses,
@@ -63,6 +63,7 @@ class Matchmaker {
   }
 
   removeFromQueue(user) {
+    console.log("REMOVING");
     const idx = this.queue.indexOf(user);
     this.queue = new Deque(this.queue.filter((index) => index !== idx));
     user.inQueue = false;

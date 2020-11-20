@@ -14,8 +14,7 @@ class Api {
                 rating, 
                 wins, 
                 losses,
-                ratio,
-                personal_deck
+                ratio
           FROM users 
           WHERE username = $1`,
       [data.username]
@@ -41,6 +40,7 @@ class Api {
             WHERE username = $1`,
       [data.username]
     );
+    console.log(data);
 
     if (duplicateCheck.rows[0]) {
       const err = new Error(
@@ -54,10 +54,10 @@ class Api {
 
     const result = await db.query(
       `INSERT INTO users 
-            (username, password, email) 
-          VALUES ($1, $2, $3) 
+            (username, password, email, rating, wins, losses, ratio) 
+          VALUES ($1, $2, $3, $4, $5, $6, $7) 
           RETURNING username, email, rating, wins, losses, ratio`,
-      [data.username, hashedPassword, data.email]
+      [data.username, hashedPassword, data.email, 1000, 0, 0, 0]
     );
 
     return result.rows[0];
@@ -75,12 +75,11 @@ class Api {
 
   async getUser(username) {
     const userRes = await db.query(
-      `SELECT username, email, wins, losses, ratio 
+      `SELECT username, email, rating, wins, losses, ratio 
             FROM users 
             WHERE username = $1`,
       [username]
     );
-
     const user = userRes.rows[0];
 
     if (!user) {
@@ -88,6 +87,8 @@ class Api {
       error.status = 404; // 404 NOT FOUND
       throw error;
     }
+
+    return user;
   }
 
   async getCards() {
@@ -96,7 +97,6 @@ class Api {
       FROM card`;
 
     const cardsRes = await db.query(query);
-    console.log(cardsRes.rows);
     return cardsRes.rows;
   }
 
@@ -145,4 +145,6 @@ class Api {
   }
 }
 
-module.exports = Api;
+const API = new Api();
+
+module.exports = API;

@@ -5,7 +5,7 @@ class Player {
     this.socketId = socket.id;
 
     this.uid = shortid.generate();
-    this.name = user.name;
+    this.username = user.username;
     this.email = user.email;
     this.rating = user.rating;
     this.wins = user.wins;
@@ -22,21 +22,13 @@ class Player {
     return this.uid;
   }
 
-  setName(name) {
-    this.name = name;
+  setName(username) {
+    this.username = username;
   }
 
   getName() {
-    return this.name;
+    return this.username;
   }
-
-  // initializeDeck() {
-  //   if (this.personal_deck) {
-  //     logic for fetching personal deck
-  //     this.deck = async axios.get(`.../decks/${personal_deck}`)
-  //   } else {
-  //     this.deck = null;
-  //   }
 
   setDeck(deck) {
     this.deck = deck;
@@ -63,9 +55,8 @@ class Player {
   }
 
   disconnect() {
-    matchmaker.removeFromQueue(this);
+    globalThis.matchmaker.removeFromQueue(this);
     console.log("I AM DISCONNECTING");
-    if (this.room) globalThis.connections.rooms[this.room].leave(this);
   }
 
   events(socket) {
@@ -87,14 +78,6 @@ class Player {
       }
     };
 
-    socket.on("request:name", function (data) {
-      if (data.name) {
-        self.setName(data.name);
-      }
-
-      socket.emit("response:name", { name: self.getName() });
-    });
-
     socket.on("request:cancelMatchmaking", function () {
       console.log("CANCELLING MATCHMAKING");
       globalThis.matchmaker.removeFromQueue(self);
@@ -108,14 +91,12 @@ class Player {
       let room = globalThis.matchmaker.findOpponent(self);
 
       if (room) {
-        socket.join(room.getId());
         globalThis.io.to(self.socketId).emit("matchmaking:found", room.getId());
         globalThis.io
           .to(self.opponent.socketId)
           .emit("matchmaking:found", room.getId());
         globalThis.io.to(room.getId()).emit("checkRoom");
       }
-
       socket.emit("update", self);
     });
   }

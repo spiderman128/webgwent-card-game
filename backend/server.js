@@ -1,7 +1,7 @@
-const app = require("express")();
+const express = require("express");
+const app = express();
 
-const Api = require("./api");
-const api = new Api();
+const api = require("./api");
 
 globalThis.api = api;
 
@@ -12,6 +12,9 @@ const server = require("http").createServer(app);
 const Config = require("./config");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const socketioJwt = require("socketio-jwt");
+
+const userRoutes = require("./auth/routes/user");
 
 globalThis.connections = new Connections();
 globalThis.matchmaker = new Matchmaker(globalThis.connections);
@@ -24,70 +27,57 @@ console.log(`Up and running on port ${Config.Server.port}`);
 
 app.use(cors({ origin: true }));
 app.use(cookieParser());
+app.use(express.json());
 app.listen(Config.WebServer.port);
 
-io.on("connection", function (socket) {
-  let uid;
+/* GET home page. */
+app.get("/", function (req, res, next) {
+  res.send("Works");
+});
+
+app.use("/users", userRoutes);
+
+io.use(
+  socketioJwt.authorize({
+    secret: Config.SECRET,
+    handshake: true,
+  })
+);
+
+io.on("connection", async function (socket) {
+  console.log(`hello! ${socket.decoded_token.username}`);
   let user;
-  let cookies = socket.handshake.headers.cookie
-    ? socket.handshake.headers.cookie.split("")
-    : [];
+  let username = socket.decoded_token.username;
+  let userInfo = username ? await api.getUser(username) : {};
 
-  for (let cookie of cookies) {
-    if (cookie.startsWith("uid=")) {
-      uid = cookie.split("=")[1];
-      uid = uid.split(";")[0];
-    }
-  }
-
-  if (uid) {
+  if (username) {
     for (let u of Object.keys(globalThis.connections.connections)) {
-      if (globalThis.connections.connections[u].getId() === uid) {
+      if (globalThis.connections.connections[u].getName() === username) {
         user = globalThis.connections.connections[u];
+        console.log("I AM LOGGED IN, RECONNECTING");
         user.socketId = socket.id;
         user.reconnect(socket);
+        console.log(user);
+        socket.emit("update", user);
       }
     }
 
     if (user && user.room) {
       user = globalThis.connections.rooms[user.room].getPlayer(user.uid);
+      user.join(user.room);
+      globalThis.connections.rooms[user.room].board.updateBoard();
     } else {
-      user = new Player(socket);
+      user = new Player(socket, userInfo);
       globalThis.connections.add(user);
-      socket.emit("setCookie", user.uid);
     }
   } else {
-    user = new Player(socket);
+    user = new Player(socket, userInfo);
     globalThis.connections.add(user);
-    socket.emit("setCookie", user.uid);
   }
 
   socket.emit("update", user);
 
-  // socket.on("matched", function (roomId) {
-  //   socket.join(roomId);
-  // });
-
-  socket.on("leave", function () {
+  socket.on("disconnect", function () {
     user.disconnect();
   });
-
-  socket.on("disconnect", function () {
-    // setTimeout(function () {
-    //   if (globalThis.connections.hasUser(user)) {
-    //     socket.broadcast.emit("user:left", {
-    //       uid: user.uid,
-    //     });
-    //     console.log(user);
-    //     user.disconnect();
-    //     globalThis.connections.remove(user);
-    //     user = null;
-    //   }
-    // }, 15000);
-  });
-});
-
-/* GET home page. */
-app.get("/", function (req, res, next) {
-  res.send("Works");
 });

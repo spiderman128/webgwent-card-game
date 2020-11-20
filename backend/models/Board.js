@@ -51,6 +51,7 @@ class Board {
 
   /** UPDATING BOARD  */
   updateBoard() {
+    console.log("REFRESHING!");
     if (this.isRoundOver()) {
       this.startNextRound();
       return;
@@ -173,7 +174,6 @@ class Board {
 
   playerLeft(player) {
     let p = this.player1 === player ? this.side2 : this.side1;
-    console.log(p);
 
     let message = { message: "Opponent left" };
 

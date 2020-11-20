@@ -191,7 +191,7 @@ class PlayerSide {
 
   getInfo() {
     return {
-      name: this.getName(),
+      username: this.getName(),
       lives: this.lives,
       score: this.calculateScore(),
       hand: this.hand.getCards(),
@@ -205,7 +205,7 @@ class PlayerSide {
 
   getInfoFoe() {
     return {
-      name: this.getName(),
+      username: this.getName(),
       lives: this.lives,
       score: this.calculateScore(),
       hand: this.hand.length(),

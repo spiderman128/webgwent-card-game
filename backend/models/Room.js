@@ -29,16 +29,6 @@ class Room {
 
   initializeBoard() {
     this.board = new Board(this.id, this.players[0], this.players[1]);
-
-    this.players[0].send("init:battle", {
-      side: "player1",
-      opponent: "player2",
-    });
-
-    this.players[1].send("init:battle", {
-      side: "player2",
-      opponent: "player1",
-    });
   }
 
   setReady(user, r) {
