@@ -1,20 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import "../css/Home.css";
 import { Link } from "react-router-dom";
 import { Animated } from "react-animated-css";
-import SocketContext from "../SocketContext";
 import NavBar from "./NavBar";
 import Rules from "./Rules";
 import Footer from "./Footer";
 
 function Home() {
-  const { user, socket } = useContext(SocketContext);
-
-  const queue = () => {
-    console.log("REQUESTING...");
-    socket.emit("request:matchmaking");
-  };
-
   return (
     <div className="Home">
       <NavBar />

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useCallback } from "react";
 import SocketContext from "../SocketContext";
 import { useParams } from "react-router-dom";
 import Board from "./Board/Board";
@@ -7,21 +7,20 @@ import "../css/Room.css";
 function Room() {
   const { room } = useParams();
   const { user, socket, setRoom } = useContext(SocketContext);
-  console.log(user);
+
+  const testRefresh = useCallback(() => {
+    socket.emit("refresh");
+  }, [socket]);
+
+  const pass = useCallback(() => {
+    socket.emit("passing");
+  }, [socket]);
 
   useEffect(() => {
     setRoom(room);
     testRefresh();
     window.scrollTo({ top: 9999, behavior: "smooth" });
-  }, [room]);
-
-  const testRefresh = () => {
-    socket.emit("refresh");
-  };
-
-  const pass = () => {
-    socket.emit("passing");
-  };
+  }, [room, setRoom, testRefresh]);
 
   return user.uid ? (
     <div className="Room">

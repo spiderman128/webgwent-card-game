@@ -16,6 +16,8 @@ function Board() {
       deck: [],
       discard: [],
       passing: false,
+      ready: false,
+      inGame: false,
       fields: {
         infantry: { cards: [], score: 0 },
         ranged: { cards: [], score: 0 },
@@ -39,8 +41,6 @@ function Board() {
     },
   });
 
-  console.log(sideInfo);
-
   useEffect(() => {
     // socket.on("playerLeft", (message) => {
     //   setOpponentLeft(true);
@@ -59,8 +59,9 @@ function Board() {
       console.log("WE HAVE A WINNER");
       console.log(message.winner);
     });
+
     socket.emit("refresh");
-  }, []);
+  }, [socket]);
 
   return (
     <div className="Board">

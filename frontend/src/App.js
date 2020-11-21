@@ -20,16 +20,14 @@ function App() {
 
     socket.on("connected", (resp) => {
       let u = resp;
-      console.log(resp);
       setUser(u);
     });
 
     socket.on("update", (resp) => {
-      console.log(resp);
       let u = resp;
       setUser(u);
     });
-  }, []);
+  }, [login]);
 
   return (
     <SocketContext.Provider value={{ socket, user, room, setUser, setRoom }}>

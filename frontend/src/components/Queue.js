@@ -32,7 +32,7 @@ function Queue() {
     socket.on("checkRoom", () => {
       console.log("Message for a room!");
     });
-  }, []);
+  }, [history, setUser, socket]);
 
   const queue = () => {
     socket.emit("request:matchmaking");

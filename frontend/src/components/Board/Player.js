@@ -6,28 +6,33 @@ import rubyDisabled from "../../img/ruby-disabled.png";
 import "../../css/Player.css";
 
 function Player({ side, user, info }) {
-  console.log(user);
   const lives = [];
 
   for (let i = 0; i < info.lives; i++) {
     lives.push(
-      <img className="Player-stats-lives-ruby-active" src={rubyActive}></img>
+      <img
+        key={`lives-active-${i}`}
+        className="Player-stats-lives-ruby-active"
+        src={rubyActive}
+        alt="lives-ruby-active"
+      ></img>
     );
   }
 
   for (let i = 0; i < 2 - info.lives; i++) {
     lives.push(
       <img
-        key={i}
+        key={`lives-disabled-${i}`}
         className="Player-stats-lives-ruby-disabled"
         src={rubyDisabled}
+        alt="lives-ruby-disabled"
       ></img>
     );
   }
 
   return (
     <div className={`Player Player-${side}`}>
-      <img className="Player-icon" src={icon}></img>
+      <img className="Player-icon" src={icon} alt="player-icon"></img>
       <div className="Player-info-section">
         <div className="Player-info">
           <span className="Player-info-username">{user.username}</span>
@@ -35,7 +40,11 @@ function Player({ side, user, info }) {
         </div>
         <div className="Player-stats">
           <span className="Player-stats-hand">
-            <img className="Player-hand-icon" src={handIcon}></img>
+            <img
+              className="Player-hand-icon"
+              src={handIcon}
+              alt="player-hand-icon"
+            ></img>
             {Array.isArray(info.hand) ? info.hand.length : info.hand}
           </span>
           <div className="Player-stats-lives">{lives}</div>

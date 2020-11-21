@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../css/Discard.css";
 
 function Discard({ side, player, cards }) {
@@ -12,6 +12,7 @@ function Discard({ side, player, cards }) {
         key={card.name}
         style={{ right: right + "px", bottom: bottom + "px" }}
         src={card.pic}
+        alt={card.name}
       ></img>
     );
     if (right <= 12) {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useLocalStorage } from "./Hooks";
 import Api from "./Api";
 import JWTDecode from "jwt-decode";
@@ -10,7 +10,7 @@ const LoggedInProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
-  const login = () => {
+  const login = useCallback(() => {
     console.log("LOGGING IN!");
     if (token) {
       setLoggedIn(true);
@@ -22,7 +22,7 @@ const LoggedInProvider = ({ children }) => {
 
       getUser();
     }
-  };
+  }, [token]);
 
   const logout = () => {
     console.log("LOGGING OUT!");

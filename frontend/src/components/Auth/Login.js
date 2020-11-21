@@ -10,7 +10,7 @@ import "../../css/Login.css";
 function Login() {
   const history = useHistory();
   const { loggedIn, setLoggedIn, setToken } = useContext(LoggedInContext);
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const [status, setStatus] = useState(null);
 
   if (loggedIn) {

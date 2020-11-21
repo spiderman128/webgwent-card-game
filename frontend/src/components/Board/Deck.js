@@ -14,6 +14,7 @@ function Deck({ side, player, cards }) {
         key={i}
         style={{ right: right + "px", bottom: bottom + "px" }}
         src={flipped}
+        alt="flipped-card"
       ></img>
     );
     if (right <= 12) {

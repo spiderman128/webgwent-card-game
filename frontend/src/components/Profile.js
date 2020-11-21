@@ -6,7 +6,7 @@ import { LoggedInContext } from "../LoggedInContext";
 import profile from "../img/profile.jpg";
 
 function Profile() {
-  const { user, loggedIn, token } = useContext(LoggedInContext);
+  const { user } = useContext(LoggedInContext);
 
   return user ? (
     <Animated className="Profile" animationIn="fadeInUp" isVisible={true}>
