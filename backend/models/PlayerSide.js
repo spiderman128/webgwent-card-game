@@ -1,7 +1,6 @@
 let BoardField = require("./BoardField");
 let Deck = require("./Deck");
 let Hand = require("./Hand");
-const api = globalThis.api;
 
 class PlayerSide {
   constructor(player, side, board) {
@@ -25,7 +24,12 @@ class PlayerSide {
     this.opponent = null;
 
     this.ready = false;
+    this.inGame = false;
 
+    this.events();
+  }
+
+  events() {
     globalThis.io.sockets.connected[this.player.socketId].on(
       "playCard",
       (card) => {
@@ -39,9 +43,13 @@ class PlayerSide {
     });
 
     globalThis.io.sockets.connected[this.player.socketId].on("ready", () => {
+      console.log("I AM READY");
       this.setReady();
 
       if (this.board.bothReady()) {
+        this.board.side1.inGame = true;
+        this.board.side2.inGame = true;
+
         this.board.send("startGame");
         this.board.fetchDecks();
         this.board.start();
@@ -99,7 +107,9 @@ class PlayerSide {
   }
 
   setReady() {
+    this.ready = true;
     this.isWaiting = true;
+    this.board.updateBoard();
   }
 
   pass() {
@@ -200,6 +210,8 @@ class PlayerSide {
       discard: this.getDiscard(),
       passed: this.passed,
       isWaiting: this.isWaiting,
+      ready: this.ready,
+      inGame: this.inGame,
     };
   }
 

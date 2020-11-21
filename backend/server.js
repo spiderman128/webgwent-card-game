@@ -46,29 +46,29 @@ io.use(
 
 io.on("connection", async function (socket) {
   console.log(`hello! ${socket.decoded_token.username}`);
-  let user;
+  let user, room;
   let username = socket.decoded_token.username;
   let userInfo = username ? await api.getUser(username) : {};
 
-  if (username) {
-    for (let u of Object.keys(globalThis.connections.connections)) {
-      if (globalThis.connections.connections[u].getName() === username) {
-        user = globalThis.connections.connections[u];
-        console.log("I AM LOGGED IN, RECONNECTING");
-        user.socketId = socket.id;
-        user.reconnect(socket);
-        console.log(user);
-        socket.emit("update", user);
-      }
-    }
+  if (globalThis.connections.hasUser(username)) {
+    user = globalThis.connections.getUser(username);
+    globalThis.connections.connections[username].socketId = socket.id;
+    globalThis.connections.connections[username].reconnect(socket);
 
-    if (user && user.room) {
-      user = globalThis.connections.rooms[user.room].getPlayer(user.uid);
-      user.join(user.room);
-      globalThis.connections.rooms[user.room].board.updateBoard();
-    } else {
-      user = new Player(socket, userInfo);
-      globalThis.connections.add(user);
+    room = globalThis.connections.connections[username].room;
+
+    if (room) {
+      globalThis.connections.rooms[room].board.events();
+      if (
+        globalThis.connections.rooms[room].board.side1.player.getName() ===
+        username
+      ) {
+        console.log(globalThis.connections.rooms[room].board.side1);
+        globalThis.connections.rooms[room].board.side1.events();
+      } else {
+        console.log(globalThis.connections.rooms[room].board.side2);
+        globalThis.connections.rooms[room].board.side2.events();
+      }
     }
   } else {
     user = new Player(socket, userInfo);

@@ -5,11 +5,11 @@ class Connections {
   }
 
   add(user) {
-    this.connections[user.getId()] = user;
+    this.connections[user.getName()] = user;
   }
 
   remove(user) {
-    delete this.connections[user.getId()];
+    delete this.connections[user.getName()];
   }
 
   listConnections() {
@@ -17,7 +17,11 @@ class Connections {
   }
 
   hasUser(user) {
-    return !!this.connections[user.getId()];
+    return !!this.connections[user];
+  }
+
+  getUser(user) {
+    return this.connections[user];
   }
 }
 

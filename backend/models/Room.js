@@ -16,8 +16,6 @@ class Room {
   }
 
   join(player) {
-    if (this.players.length >= 2) return;
-
     this.players.push(player);
     player.setRoom(this);
     player.join(this.id);

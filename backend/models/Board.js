@@ -11,7 +11,7 @@ class Board {
     this.initialize();
   }
 
-  initialize() {
+  events() {
     globalThis.io.sockets.connected[this.player1.socketId].on(
       "refresh",
       this.updateBoard.bind(this)
@@ -30,7 +30,10 @@ class Board {
       "disconnect",
       () => this.playerLeft(this.player2)
     );
+  }
 
+  initialize() {
+    this.events();
     this.side1 = new PlayerSide(this.player1, "player1", this);
     this.side2 = new PlayerSide(this.player2, "player2", this);
     this.side1.opponent = this.player2;
@@ -65,7 +68,7 @@ class Board {
   }
 
   bothReady() {
-    return this.side1.isWaiting && this.side2.isWaiting;
+    return this.side1.ready && this.side2.ready;
   }
 
   fetchDecks() {
@@ -143,7 +146,7 @@ class Board {
     this.side2.passed = false;
 
     this.send("gameover", {
-      winnner: winner === this.side1 ? "player1" : "player2",
+      winner: winner === this.side1 ? "player1" : "player2",
     });
   }
 
