@@ -233,6 +233,7 @@ class PlayerSide {
   reset() {
     this.clearFields();
     this.passed = false;
+    this.isWaiting = true;
   }
 }
 

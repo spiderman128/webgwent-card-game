@@ -77,13 +77,19 @@ class Board {
   }
 
   switchTurn() {
-    if (this.side1.passed) this.side2.isWaiting = false;
-    else if (this.side2.passed) this.side1.isWaiting = false;
-    else {
-      console.log("SWITCHING");
-      this.side1.isWaiting = !this.side1.isWaiting;
-      this.side2.isWaiting = !this.side2.isWaiting;
+    if (this.side1.passed) {
+      this.side2.isWaiting = false;
+      return;
     }
+
+    if (this.side2.passed) {
+      this.side1.isWaiting = false;
+      return;
+    }
+
+    console.log("SWITCHING");
+    this.side1.isWaiting = !this.side1.isWaiting;
+    this.side2.isWaiting = !this.side2.isWaiting;
 
     this.updateBoard();
   }
