@@ -14,7 +14,7 @@ function CardDetails({ card, setCurrentCard }) {
   return card ? (
     <div className="CardDetails">
       <img src={card.pic} alt={card.name} />
-      <button className="btn" onClick={playCard}>
+      <button className="btn play-btn" onClick={playCard}>
         PLAY
       </button>
     </div>

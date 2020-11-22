@@ -26,6 +26,7 @@
 }
   
 .play-btn:hover {
+  cursor: pointer;
   box-shadow: 1px 1px 25px 10px rgba(255, 195, 29, 0.4)
 }
   

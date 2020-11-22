@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { Animated } from "react-animated-css";
 import SocketContext from "../SocketContext";
@@ -14,6 +14,9 @@ function Queue() {
   const [inQueue, setInQueue] = useState(user.inQueue);
   const [currentBg, setCurrentBg] = useState({ background: "" });
   const history = useHistory();
+
+  const inRoom = useRef(user.room);
+  console.log(inRoom.current);
 
   useEffect(() => {
     const bg = [q1, q2, q3, q4];
@@ -44,13 +47,16 @@ function Queue() {
     setInQueue(false);
   };
 
-  // useEffect(() => {
-  //   setInQueue(user.inQueue);
-  //   if (user.room) {
-  //     console.log("REDIRECTING");
-  //     history.push(`/room/${user.room}`);
-  //   }
-  // }, [user]);
+  const reconnect = () => {
+    console.log("REDIRECTING");
+    socket.emit("rejoin");
+    history.push(`/room/${user.room}`);
+  };
+
+  const abandon = () => {
+    console.log("ABANDONING");
+    socket.emit("abandon");
+  };
 
   return (
     <div className="Queue" style={currentBg}>
@@ -60,7 +66,24 @@ function Queue() {
         animationIn="fadeInUp"
         isVisible={true}
       >
-        {inQueue ? (
+        {inRoom.current ? (
+          <div className="Queue-inGame">
+            <p className="Queue-inGame-text">
+              You are in a game in progress (room id: {user.room})
+            </p>
+            <div className="Queue-inGame-buttons">
+              <button
+                className="Queue-inGame-button reconnect"
+                onClick={reconnect}
+              >
+                Reconnect
+              </button>
+              <button className="Queue-inGame-button abandon" onClick={abandon}>
+                Abandon
+              </button>
+            </div>
+          </div>
+        ) : inQueue ? (
           <div className="Queue-searching">
             <div className="Queue-loading">
               <div></div>

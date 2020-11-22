@@ -11,7 +11,7 @@ import PlayerPanel from "./PlayerPanel";
 
 function BoardSide({ player, PLAYER, sideInfo, isWaiting }) {
   const [currentCard, setCurrentCard] = useState();
-  console.log(sideInfo);
+
   return player ? (
     <div className={`BoardSide ${PLAYER} ${isWaiting ? "waiting" : ""}`}>
       <div className={`side-fields ${PLAYER}-side-fields`}>

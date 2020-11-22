@@ -5,11 +5,8 @@ import { LoggedInContext } from "../LoggedInContext";
 import "../css/NavBar.css";
 
 function NavBar() {
-  const { user, loggedIn, token } = useContext(LoggedInContext);
+  const { loggedIn } = useContext(LoggedInContext);
 
-  console.log("user: ", user);
-  console.log("token: ", token);
-  console.log("logged?: ", loggedIn);
   return (
     <Animated className="NavBar" animationIn="fadeInUp" isVisible={true}>
       <div className="NavBar-links">

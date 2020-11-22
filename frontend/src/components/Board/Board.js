@@ -4,10 +4,7 @@ import SocketContext from "../../SocketContext";
 import BoardSide from "./BoardSide";
 
 function Board() {
-  const { user, socket } = useContext(SocketContext);
-  const [opponentLeft, setOpponentLeft] = useState(false);
-  const [isWaiting, setIsWaiting] = useState(false);
-  const [sideInfo, setSideInfo] = useState({
+  const DEFAULT_STATE = {
     info: {
       username: undefined,
       lives: 0,
@@ -39,21 +36,31 @@ function Board() {
         siege: { cards: [], score: 0 },
       },
     },
-  });
+  };
+
+  const { user, socket } = useContext(SocketContext);
+  const [opponentLeft, setOpponentLeft] = useState(false);
+  const [isWaiting, setIsWaiting] = useState(false);
+  const [sideInfo, setSideInfo] = useState(DEFAULT_STATE);
 
   useEffect(() => {
+    let mounted = true;
     // socket.on("playerLeft", (message) => {
     //   setOpponentLeft(true);
     //   console.log(message);
     // });
     socket.on("updateBoard", (data) => {
-      console.log("REFRESHING");
-      setSideInfo(data);
-      setIsWaiting(data.info.isWaiting);
+      if (mounted) {
+        console.log("REFRESHING");
+        setSideInfo(data);
+        setIsWaiting(data.info.isWaiting);
+      }
     });
     socket.on("passed", (message) => {
       console.log("I PASSED!");
-      setIsWaiting(message.passed);
+      if (mounted) {
+        setIsWaiting(message.passed);
+      }
     });
     socket.on("gameover", (message) => {
       console.log("WE HAVE A WINNER");
@@ -61,6 +68,10 @@ function Board() {
     });
 
     socket.emit("refresh");
+
+    return function cleanup() {
+      mounted = false;
+    };
   }, [socket]);
 
   return (

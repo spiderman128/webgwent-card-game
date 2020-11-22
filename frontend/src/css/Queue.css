@@ -73,22 +73,16 @@
 }
 
 .Queue-button:hover:before {
-
     left: -5%;
 }
 
 .Queue-button:hover .Queue-button-text-main {
-    /*When hovering over .button change .btnText*/
     margin-left: 20%;
 }
 
 .Queue-button:active {
-    /*Clicked and held*/
     box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.3);
 }
-
-
-
 
 .Queue-loading {
     display: inline-block;
@@ -126,3 +120,44 @@
         opacity: 0;
     }
 }
+
+.Queue-inGame-text {
+    font-size: 24px;
+}
+
+.Queue-inGame {
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+}
+
+.Queue-inGame-buttons {
+    margin: 1em;
+}
+
+.Queue-inGame-button {
+    display: inline-block;
+    margin: auto 1em;
+    color: #fefefe;
+    font-size: 1.2em;
+    padding: 1em;
+    border-radius: 15%;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    border: 0;
+    transition: transform 0.1s;
+}
+
+.Queue-inGame-button:hover {
+    transform: scale(1.2);
+}
+
+.reconnect {
+    background: #1e7c16;
+}
+
+.abandon {
+    background: #681616;
+}
+
