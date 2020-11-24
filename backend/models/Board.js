@@ -77,26 +77,32 @@ class Board {
   }
 
   switchTurn() {
+    let current;
     if (this.side1.passed) {
       this.side2.isWaiting = false;
-      return;
-    }
-
-    if (this.side2.passed) {
+    } else if (this.side2.passed) {
       this.side1.isWaiting = false;
-      return;
+    } else {
+      this.side1.isWaiting = !this.side1.isWaiting;
+      this.side2.isWaiting = !this.side2.isWaiting;
     }
 
-    console.log("SWITCHING");
-    this.side1.isWaiting = !this.side1.isWaiting;
-    this.side2.isWaiting = !this.side2.isWaiting;
+    current = this.side1.isWaiting
+      ? this.side2.player.getName()
+      : this.side1.player.getName();
+
+    this.send("currentTurn", { currentTurn: current });
 
     this.updateBoard();
   }
 
   chooseFirstPlayer() {
     console.log("CHOOSING FIRST");
-    Math.random() >= 0.5
+    let chosen = Math.random() >= 0.5 ? this.side1 : this.side2;
+
+    this.send("firstPlayer", { firstPlayer: chosen.player.getName() });
+
+    chosen === this.side1
       ? (this.side1.isWaiting = false)
       : (this.side2.isWaiting = false);
   }
@@ -152,7 +158,10 @@ class Board {
     this.side2.passed = false;
 
     this.send("gameover", {
-      winner: winner === this.side1 ? "player1" : "player2",
+      winner:
+        winner === this.side1
+          ? this.side1.player.getName()
+          : this.side2.player.getName(),
     });
   }
 
