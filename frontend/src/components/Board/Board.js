@@ -1,7 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import "../../css/Board.css";
 import SocketContext from "../../SocketContext";
 import BoardSide from "./BoardSide";
+import Overlay from "./Overlay";
 
 function Board() {
   const DEFAULT_STATE = {
@@ -42,6 +43,9 @@ function Board() {
   const [opponentLeft, setOpponentLeft] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
   const [sideInfo, setSideInfo] = useState(DEFAULT_STATE);
+  const [currentPlayer, setCurrentPlayer] = useState("");
+
+  const action = useRef("");
 
   useEffect(() => {
     let mounted = true;
@@ -65,6 +69,18 @@ function Board() {
     socket.on("gameover", (message) => {
       console.log("WE HAVE A WINNER");
       console.log(message.winner);
+      setCurrentPlayer(message.winner);
+      action.current = "gameOver";
+    });
+
+    socket.on("firstPlayer", (message) => {
+      setCurrentPlayer(message.firstPlayer);
+      action.current = "firstPlayer";
+    });
+
+    socket.on("currentTurn", (message) => {
+      setCurrentPlayer(message.currentTurn);
+      action.current = "currentTurn";
     });
 
     socket.emit("refresh");
@@ -74,8 +90,19 @@ function Board() {
     };
   }, [socket]);
 
+  console.log("I am rerendering with first player: ", currentPlayer);
+
   return (
     <div className="Board">
+      {currentPlayer ? (
+        <Overlay
+          key={Math.random()}
+          action={action.current}
+          currPlayer={currentPlayer}
+        />
+      ) : (
+        <></>
+      )}
       {opponentLeft ? (
         <div id="open-modal" className="modal-window">
           <div>
@@ -89,17 +116,20 @@ function Board() {
       ) : (
         <></>
       )}
+
       <BoardSide
         player={user.opponent}
         PLAYER="opponent"
         sideInfo={sideInfo.opponent}
         isWaiting={sideInfo.opponent.isWaiting}
+        currentPlayer={currentPlayer}
       />
       <BoardSide
         player={user}
         PLAYER="you"
         sideInfo={sideInfo.info}
         isWaiting={isWaiting}
+        currentPlayer={currentPlayer}
       />
     </div>
   );

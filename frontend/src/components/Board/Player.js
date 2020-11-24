@@ -5,7 +5,7 @@ import rubyActive from "../../img/ruby-active.png";
 import rubyDisabled from "../../img/ruby-disabled.png";
 import "../../css/Player.css";
 
-function Player({ side, user, info }) {
+function Player({ side, user, info, currentPlayer }) {
   const lives = [];
 
   for (let i = 0; i < info.lives; i++) {
@@ -31,7 +31,11 @@ function Player({ side, user, info }) {
   }
 
   return (
-    <div className={`Player Player-${side}`}>
+    <div
+      className={`Player Player-${side} ${
+        currentPlayer == user.username ? "current" : ""
+      }`}
+    >
       <img className="Player-icon" src={icon} alt="player-icon"></img>
       <div className="Player-info-section">
         <div className="Player-info">

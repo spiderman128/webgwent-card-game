@@ -9,14 +9,19 @@ import Deck from "./Deck";
 import CardDetails from "./CardDetails";
 import PlayerPanel from "./PlayerPanel";
 
-function BoardSide({ player, PLAYER, sideInfo, isWaiting }) {
+function BoardSide({ player, PLAYER, sideInfo, isWaiting, currentPlayer }) {
   const [currentCard, setCurrentCard] = useState();
 
   return player ? (
     <div className={`BoardSide ${PLAYER} ${isWaiting ? "waiting" : ""}`}>
       <div className={`side-fields ${PLAYER}-side-fields`}>
         {PLAYER === "you" ? <WeatherField /> : <></>}
-        <Player side={PLAYER} user={player} info={sideInfo} />
+        <Player
+          side={PLAYER}
+          user={player}
+          info={sideInfo}
+          currentPlayer={currentPlayer}
+        />
         {PLAYER === "you" ? (
           <PlayerPanel _ready={sideInfo.ready} _inGame={sideInfo.inGame} />
         ) : (

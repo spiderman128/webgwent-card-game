@@ -15,8 +15,6 @@ function Room() {
       setRoom(room);
     }
 
-    window.scrollTo({ top: 9999, behavior: "smooth" });
-
     return function cleanup() {
       mounted = false;
     };

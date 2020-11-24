@@ -1,20 +1,6 @@
-/* body {
-    background: url('../img/bg.jpg');
-    background-size: cover;
-} */
-
-.Board {
-    background: url('../img/bg.jpg');
-    background-size: cover;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.Board-firstPlayer-overlay {
+.Board-firstPlayer-overlay, .Board-winner-overlay {
     position: fixed;
-    background-color: rgba(255, 255, 255, 0.25);
+    background-color: rgba(0, 0, 0, 0.7);
     top: 0;
     right: 0;
     bottom: 0;
@@ -23,7 +9,12 @@
     transition: opacity ease-in-out 0.5s;
 }
 
-.Board-firstPlayer-overlay > div {
+.Board-winner-overlay {
+    z-index: 99;
+    opacity: 1;
+}
+
+.Board-firstPlayer-overlay > div, .Board-winner-overlay > div {
       width: 400px;
       position: absolute;
       top: 50%;
@@ -31,24 +22,25 @@
       transform: translate(-50%, -50%);
       padding: 2em;
       background: #ffffff;
+      box-shadow: 0px 0px 25px #ffc455;
 }
 
 .overlay-you, .overlay-opponent {
     z-index: 999;
     pointer-events: none;
-    -moz-animation: animate ease-in 3s forwards;
+    -moz-animation: animate ease-in 2.5s forwards;
     /* Firefox */
-    -webkit-animation: animate ease-in 3s forwards;
+    -webkit-animation: animate ease-in 2.5s forwards;
     /* Safari and Chrome */
-    -o-animation: animate ease-in 3s;
+    -o-animation: animate ease-in 2.5s forwards;
     /* Opera */
-    animation: animate ease-in 3s forwards;
+    animation: animate ease-in 2.5s forwards;
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
 }
 
 @keyframes animate {
-    15% {
+    25% {
         opacity: 1;
     }
     85% {
@@ -56,7 +48,7 @@
     }
 }
 @-webkit-keyframes animate {
-    25% {
+    85% {
         opacity: 1;
     }
     75% {
