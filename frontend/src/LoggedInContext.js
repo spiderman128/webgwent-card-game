@@ -10,26 +10,34 @@ const LoggedInProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
 
+  const logout = useCallback(() => {
+    console.log("LOGGING OUT!");
+    removeToken();
+    setLoggedIn(false);
+    setUser(null);
+  }, [token]);
+
   const login = useCallback(() => {
-    console.log("LOGGING IN!");
     if (token) {
+      console.log(JWTDecode(token));
+      const { username, exp, iat } = JWTDecode(token);
+
+      if (Math.floor(Date.now() / 1000) >= exp) {
+        console.log("Token expired");
+        logout();
+        return;
+      }
+
       setLoggedIn(true);
 
       async function getUser() {
-        const user = await Api.getUser(JWTDecode(token).username);
+        const user = await Api.getUser(username);
         setUser(user);
       }
 
       getUser();
     }
   }, [token]);
-
-  const logout = () => {
-    console.log("LOGGING OUT!");
-    removeToken();
-    setLoggedIn(false);
-    setUser(null);
-  };
 
   return (
     <LoggedInContext.Provider

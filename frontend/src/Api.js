@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_URL || "http://localhost:3000";
+const API_URL = process.env.REACT_APP_URL || "http://localhost:8000";
 
 class Api {
   static async request(endpoint, paramsOrData = {}, verb = "get") {

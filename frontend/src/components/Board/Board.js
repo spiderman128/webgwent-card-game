@@ -68,8 +68,8 @@ function Board() {
     });
     socket.on("gameover", (message) => {
       console.log("WE HAVE A WINNER");
-      console.log(message.winner);
-      setCurrentPlayer(message.winner);
+      console.log(message.matchInfo);
+      setCurrentPlayer(message.matchInfo.winner.username);
       action.current = "gameOver";
     });
 

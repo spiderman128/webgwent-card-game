@@ -8,12 +8,12 @@ function Overlay({ action, currPlayer }) {
   return currPlayer && action !== "gameOver" ? (
     <div
       className={`Board-firstPlayer-overlay ${
-        currPlayer == user.username ? "overlay-you" : "overlay-opponent"
+        currPlayer === user.username ? "overlay-you" : "overlay-opponent"
       }`}
     >
       <div>
-        {action == "firstPlayer" ? `First Turn: ${currPlayer}` : <></>}
-        {action == "currentTurn" ? `${currPlayer}'s Turn` : <></>}
+        {action === "firstPlayer" ? `First Turn: ${currPlayer}` : <></>}
+        {action === "currentTurn" ? `${currPlayer}'s Turn` : <></>}
       </div>
     </div>
   ) : (

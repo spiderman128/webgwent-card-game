@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Redirect, Link, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { LoggedInContext } from "../../LoggedInContext";
+import SocketContext from "../../SocketContext";
 import { Animated } from "react-animated-css";
 import NavBar from "../NavBar";
 import Api from "../../Api";
@@ -13,6 +14,7 @@ function Register() {
   const { setUser, loggedIn, setLoggedIn, setToken } = useContext(
     LoggedInContext
   );
+  const { reconnect } = useContext(SocketContext);
 
   if (loggedIn) {
     return <Redirect to="/" />;
@@ -34,6 +36,8 @@ function Register() {
     const user = await Api.getUser(data.username);
     setUser(user);
     setLoggedIn(true);
+
+    reconnect();
 
     history.push("/");
   }

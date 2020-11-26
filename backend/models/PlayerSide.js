@@ -212,6 +212,7 @@ class PlayerSide {
       isWaiting: this.isWaiting,
       ready: this.ready,
       inGame: this.inGame,
+      rating: this.player.getRating(),
     };
   }
 
@@ -227,6 +228,7 @@ class PlayerSide {
       passed: this.passed,
       isWaiting: this.isWaiting,
       fields: this.fields,
+      rating: this.opponent.getRating(),
     };
   }
 

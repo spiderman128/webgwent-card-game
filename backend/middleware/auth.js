@@ -1,8 +1,7 @@
 /** Convenience middleware to handle common auth cases in routes. */
 
 const jwt = require("jsonwebtoken");
-const { SECRET } = require("../config");
-
+const Config = require("../config");
 /** Middleware to use when they must provide a valid token.
  *
  * Add username onto req as a convenience for view functions.
@@ -14,7 +13,7 @@ const { SECRET } = require("../config");
 function authRequired(req, res, next) {
   try {
     const tokenStr = req.body._token || req.query._token;
-    let token = jwt.verify(tokenStr, SECRET);
+    let token = jwt.verify(tokenStr, Config.ACCESS_TOKEN_SECRET);
     req.username = token.username;
     return next();
   } catch (err) {
@@ -37,7 +36,7 @@ function ensureCorrectUser(req, res, next) {
   try {
     const tokenStr = req.body._token || req.query._token;
 
-    let token = jwt.verify(tokenStr, SECRET);
+    let token = jwt.verify(tokenStr, Config.ACCESS_TOKEN_SECRET);
     req.username = token.username;
 
     if (token.username === req.params.username) {

@@ -50,6 +50,10 @@ class Player {
     this.room = room.id;
   }
 
+  getRating() {
+    return this.rating;
+  }
+
   reconnect(socket) {
     this.events(socket);
   }

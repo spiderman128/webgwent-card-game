@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Redirect, Link, useHistory } from "react-router-dom";
 import { LoggedInContext } from "../../LoggedInContext";
+import SocketContext from "../../SocketContext";
 import { Animated } from "react-animated-css";
 import { useForm } from "react-hook-form";
 import NavBar from "../NavBar";
@@ -9,6 +10,7 @@ import "../../css/Login.css";
 
 function Login() {
   const history = useHistory();
+  const { reconnect } = useContext(SocketContext);
   const { loggedIn, setLoggedIn, setToken } = useContext(LoggedInContext);
   const { register, handleSubmit } = useForm();
   const [status, setStatus] = useState(null);
@@ -30,6 +32,8 @@ function Login() {
 
     setToken(_token);
     setLoggedIn(true);
+
+    reconnect();
 
     history.push("/");
   }

@@ -6,7 +6,7 @@ import SocketContext from "./SocketContext";
 import { LoggedInContext } from "./LoggedInContext";
 import io from "socket.io-client";
 
-const socket = io.connect("http://localhost:3001", {
+let socket = io.connect("http://localhost:8000", {
   query: `token=${localStorage.getItem("_token")}`,
 });
 
@@ -14,6 +14,12 @@ function App() {
   const [user, setUser] = useState({});
   const [room, setRoom] = useState();
   const { login } = useContext(LoggedInContext);
+
+  const reconnect = () => {
+    socket = io.connect("http://localhost:8000", {
+      query: `token=${localStorage.getItem("_token")}`,
+    });
+  };
 
   useEffect(() => {
     login();
@@ -30,7 +36,9 @@ function App() {
   }, [login]);
 
   return (
-    <SocketContext.Provider value={{ socket, user, room, setUser, setRoom }}>
+    <SocketContext.Provider
+      value={{ socket, user, room, setUser, setRoom, reconnect }}
+    >
       <div className="App">
         <BrowserRouter>
           <Routes />

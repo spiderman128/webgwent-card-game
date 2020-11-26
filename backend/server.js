@@ -18,36 +18,33 @@ const userRoutes = require("./auth/routes/user");
 
 globalThis.connections = new Connections();
 globalThis.matchmaker = new Matchmaker(globalThis.connections);
-globalThis.io = require("socket.io").listen(server);
-globalThis.io.origins("*:*");
-
-server.listen(3001);
-
-console.log(`Up and running on port ${Config.Server.port}`);
 
 app.use(cors({ origin: true }));
 app.use(cookieParser());
 app.use(express.json());
-app.listen(Config.WebServer.port);
 
-/* GET home page. */
 app.get("/", function (req, res, next) {
   res.send("Works");
 });
 
 app.use("/users", userRoutes);
 
+globalThis.io = require("socket.io").listen(server);
+globalThis.io.origins("*:*");
+
 io.use(
   socketioJwt.authorize({
-    secret: Config.SECRET,
+    secret: Config.ACCESS_TOKEN_SECRET,
     handshake: true,
   })
 );
 
 io.on("connection", async function (socket) {
-  console.log(`hello! ${socket.decoded_token.username}`);
+  console.log(`hello! ${JSON.stringify(socket.decoded_token)}`);
+  console.log(globalThis.matchmaker.connections.connections);
   let user, room;
   let username = socket.decoded_token.username;
+
   let userInfo = username ? await api.getUser(username) : {};
 
   if (globalThis.connections.hasUser(username)) {
@@ -56,17 +53,15 @@ io.on("connection", async function (socket) {
     globalThis.connections.connections[username].reconnect(socket);
 
     room = globalThis.connections.connections[username].room;
-
+    console.log("ROOM: ", room);
     if (room) {
       globalThis.connections.rooms[room].board.events();
       if (
         globalThis.connections.rooms[room].board.side1.player.getName() ===
         username
       ) {
-        console.log(globalThis.connections.rooms[room].board.side1);
         globalThis.connections.rooms[room].board.side1.events();
       } else {
-        console.log(globalThis.connections.rooms[room].board.side2);
         globalThis.connections.rooms[room].board.side2.events();
       }
     }
@@ -81,3 +76,7 @@ io.on("connection", async function (socket) {
     user.disconnect();
   });
 });
+
+server.listen(Config.WebServer.port);
+
+console.log(`Up and running on port ${Config.WebServer.port}`);

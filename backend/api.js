@@ -91,6 +91,15 @@ class Api {
     return user;
   }
 
+  async updateUserRating(username, data) {
+    const result = await db.query(
+      `UPDATE users SET rating=$1 WHERE username=$2 RETURNING *`,
+      [data.rating, username]
+    );
+
+    return result.rows[0];
+  }
+
   async getCards() {
     let query = `
       SELECT card_key, name, power, ability, type, faction 
@@ -142,6 +151,69 @@ class Api {
     out.cards = cardsRes.rows;
 
     return out;
+  }
+
+  async getUserMatches(username) {
+    const user = await db.query(`SELECT id FROM user WHERE username = $1`, [
+      username,
+    ]);
+
+    const result = await db.query(
+      `SELECT id, winner, loser, winner_faction, loser_faction, winner_rating, loser_rating, date
+          FROM match
+          WHERE winner = $1
+          ORDER BY date`,
+      [user.rows[0].id]
+    );
+
+    return result.rows;
+  }
+
+  async getMatch(key) {
+    const result = await db.query(
+      `SELECT id, winner, loser, winner_faction, loser_faction, winner_rating, loser_rating, date
+        FROM match
+        WHERE id = $1 `,
+      [key]
+    );
+
+    return result.rows[0];
+  }
+
+  async recordMatch(matchInfo) {
+    const winner = await db.query(`SELECT id FROM users WHERE username = $1`, [
+      matchInfo.winner.username,
+    ]);
+    const loser = await db.query(`SELECT id FROM users WHERE username = $1`, [
+      matchInfo.loser.username,
+    ]);
+
+    const winner_faction = await db.query(
+      `SELECT faction_id FROM faction WHERE name = $1`,
+      [matchInfo.winner.faction]
+    );
+    const loser_faction = await db.query(
+      `SELECT faction_id FROM faction WHERE name = $1`,
+      [matchInfo.loser.faction]
+    );
+
+    const result = await db.query(
+      `INSERT INTO match 
+            (winner, loser, winner_faction, loser_faction, winner_rating, loser_rating, date) 
+          VALUES ($1, $2, $3, $4, $5, $6, $7) 
+          RETURNING winner, loser, winner_faction, loser_faction, winner_rating, loser_rating, date`,
+      [
+        winner.rows[0].id,
+        loser.rows[0].id,
+        winner_faction.rows[0].faction_id,
+        loser_faction.rows[0].faction_id,
+        matchInfo.winner.rating,
+        matchInfo.loser.rating,
+        matchInfo.date,
+      ]
+    );
+
+    return result.rows[0];
   }
 }
 

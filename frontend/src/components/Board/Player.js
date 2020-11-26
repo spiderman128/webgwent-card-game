@@ -33,7 +33,7 @@ function Player({ side, user, info, currentPlayer }) {
   return (
     <div
       className={`Player Player-${side} ${
-        currentPlayer == user.username ? "current" : ""
+        currentPlayer === user.username ? "current" : ""
       }`}
     >
       <img className="Player-icon" src={icon} alt="player-icon"></img>

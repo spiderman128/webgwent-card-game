@@ -1,4 +1,5 @@
 const PlayerSide = require("./PlayerSide");
+const api = require("../api");
 
 class Board {
   constructor(id, player1, player2) {
@@ -151,17 +152,50 @@ class Board {
     }
   }
 
-  gameOver(winner) {
+  async gameOver(winner) {
     console.log("GAME OVER");
 
     this.side1.passed = false;
     this.side2.passed = false;
 
+    let loser = winner === this.side1 ? this.side2 : this.side1;
+
+    winner.player.rating += 25;
+    loser.player.rating -= 25;
+
+    /* UTIL FUNCTION */
+    function formatDate(date, format) {
+      const map = {
+        mm: date.getMonth() + 1,
+        dd: date.getDate(),
+        yy: date.getFullYear().toString().slice(-2),
+        yyyy: date.getFullYear(),
+      };
+
+      return format.replace(/mm|dd|yy|yyy/gi, (matched) => map[matched]);
+    }
+    /* *************** */
+
+    let date = new Date();
+    date = formatDate(date, "mm/dd/yyyy");
+
+    let matchInfo = {
+      winner: winner.getInfo(),
+      loser: loser.getInfo(),
+      date: date,
+    };
+
+    api.recordMatch(matchInfo);
+
+    api.updateUserRating(winner.player.getName(), {
+      rating: winner.player.rating,
+    });
+    api.updateUserRating(loser.player.getName(), {
+      rating: loser.player.rating,
+    });
+
     this.send("gameover", {
-      winner:
-        winner === this.side1
-          ? this.side1.player.getName()
-          : this.side2.player.getName(),
+      matchInfo,
     });
   }
 

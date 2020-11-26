@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { Animated } from "react-animated-css";
 import SocketContext from "../SocketContext";
@@ -14,9 +14,6 @@ function Queue() {
   const [inQueue, setInQueue] = useState(user.inQueue);
   const [currentBg, setCurrentBg] = useState({ background: "" });
   const history = useHistory();
-
-  const inRoom = useRef(user.room);
-  console.log(inRoom.current);
 
   useEffect(() => {
     const bg = [q1, q2, q3, q4];
@@ -66,7 +63,7 @@ function Queue() {
         animationIn="fadeInUp"
         isVisible={true}
       >
-        {inRoom.current ? (
+        {user.room ? (
           <div className="Queue-inGame">
             <p className="Queue-inGame-text">
               You are in a game in progress (room id: {user.room})

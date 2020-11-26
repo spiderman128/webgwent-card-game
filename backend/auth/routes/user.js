@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const api = require("../../api");
-const createToken = require("../helpers/helpers");
+const { createAccessToken, createRefreshToken } = require("../helpers/helpers");
 const { ensureCorrectUser, authRequired } = require("../../middleware/auth");
 
 router.get("/", authRequired, async function (req, res, next) {
@@ -25,7 +25,7 @@ router.get("/:username", authRequired, async function (req, res, next) {
 router.post("/register", async function (req, res, next) {
   try {
     const newUser = await api.registerUser(req.body);
-    const token = createToken(newUser);
+    const token = createAccessToken(newUser);
     return res.status(201).json({ token });
   } catch (e) {
     return next(e);
@@ -35,7 +35,7 @@ router.post("/register", async function (req, res, next) {
 router.post("/login", async function (req, res, next) {
   try {
     const user = await api.authenticateUser(req.body);
-    const token = createToken(user);
+    const token = createAccessToken(user);
     return res.json({ token });
   } catch (e) {
     return next(e);
