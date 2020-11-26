@@ -92,10 +92,17 @@ class Api {
   }
 
   async updateUserRating(username, data) {
-    const result = await db.query(
-      `UPDATE users SET rating=$1 WHERE username=$2 RETURNING *`,
-      [data.rating, username]
-    );
+    console.log(data);
+    const result =
+      data.won === true
+        ? await db.query(
+            `UPDATE users SET rating=$1, wins = wins + 1, ratio = CASE WHEN losses = 0 THEN wins ELSE TRUNC(((wins + 1)::numeric / losses::numeric),2) END WHERE username=$2 RETURNING *`,
+            [data.rating, username]
+          )
+        : await db.query(
+            `UPDATE users SET rating=$1, losses = losses + 1, ratio = CASE WHEN losses = 0 THEN wins ELSE TRUNC((wins::numeric / (losses + 1)::numeric),2) END WHERE username=$2 RETURNING *`,
+            [data.rating, username]
+          );
 
     return result.rows[0];
   }
@@ -154,18 +161,18 @@ class Api {
   }
 
   async getUserMatches(username) {
-    const user = await db.query(`SELECT id FROM user WHERE username = $1`, [
+    const user = await db.query(`SELECT id FROM users WHERE username = $1`, [
       username,
     ]);
 
     const result = await db.query(
-      `SELECT id, winner, loser, winner_faction, loser_faction, winner_rating, loser_rating, date
-          FROM match
-          WHERE winner = $1
+      `SELECT m.id, m.winner, m.loser, m.winner_faction, m.loser_faction, m.winner_rating, m.loser_rating, m.date, u.username AS winner_name, u2.username AS loser_name
+          FROM match AS m INNER JOIN users AS u ON u.id = m.winner INNER JOIN users AS u2 ON u2.id = m.loser
+          WHERE m.winner = $1 or m.loser = $1
           ORDER BY date`,
       [user.rows[0].id]
     );
-
+    console.log(result.rows);
     return result.rows;
   }
 

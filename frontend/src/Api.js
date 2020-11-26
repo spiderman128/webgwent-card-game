@@ -35,6 +35,11 @@ class Api {
     let res = await this.request(`users/${username}`);
     return res.user;
   }
+
+  static async getMatches(username) {
+    let res = await this.request(`matches/${username}`);
+    return res.matches;
+  }
 }
 
 export default Api;

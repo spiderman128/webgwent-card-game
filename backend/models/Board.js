@@ -185,14 +185,18 @@ class Board {
       date: date,
     };
 
+    /* THINK WHERE TO MOVE THIS LOGIC; */
     api.recordMatch(matchInfo);
 
     api.updateUserRating(winner.player.getName(), {
       rating: winner.player.rating,
+      won: true,
     });
     api.updateUserRating(loser.player.getName(), {
       rating: loser.player.rating,
+      won: false,
     });
+    /* ******************************** */
 
     this.send("gameover", {
       matchInfo,

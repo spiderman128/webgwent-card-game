@@ -4,6 +4,7 @@ import { Animated } from "react-animated-css";
 import NavBar from "./NavBar";
 import { LoggedInContext } from "../LoggedInContext";
 import profile from "../img/profile.jpg";
+import MatchList from "./MatchList";
 
 function Profile() {
   const { user } = useContext(LoggedInContext);
@@ -46,9 +47,10 @@ function Profile() {
           </div>
         </div>
       </div>
+      <MatchList />
     </Animated>
   ) : (
-    <h1>LOADING</h1>
+    <></>
   );
 }
 

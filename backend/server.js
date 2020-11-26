@@ -15,6 +15,7 @@ const cookieParser = require("cookie-parser");
 const socketioJwt = require("socketio-jwt");
 
 const userRoutes = require("./auth/routes/user");
+const matchesRoutes = require("./matches/routes/match");
 
 globalThis.connections = new Connections();
 globalThis.matchmaker = new Matchmaker(globalThis.connections);
@@ -28,6 +29,7 @@ app.get("/", function (req, res, next) {
 });
 
 app.use("/users", userRoutes);
+app.use("/matches", matchesRoutes);
 
 globalThis.io = require("socket.io").listen(server);
 globalThis.io.origins("*:*");
