@@ -14,6 +14,7 @@ function App() {
   const [user, setUser] = useState({});
   const [room, setRoom] = useState();
   const { login } = useContext(LoggedInContext);
+  console.log("APP.JS | ROOM: ", room)
 
   const reconnect = () => {
     socket = io.connect("http://localhost:8000", {

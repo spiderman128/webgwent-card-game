@@ -22,9 +22,8 @@ class Matchmaker {
     if (found) {
       console.log(`FOUND OPPONENT: ${found.uid}`);
       let room = new Room();
-      let roomId = room.getId();
 
-      globalThis.connections.rooms[roomId] = room;
+      globalThis.connections.addRoom(room)
 
       user.opponent = {
         uid: found.uid,

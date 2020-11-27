@@ -12,6 +12,10 @@ class Connections {
     delete this.connections[user.getName()];
   }
 
+  removeRoom(room) {
+    delete this.rooms[room.getId()]
+  }
+
   listConnections() {
     return this.connections;
   }
@@ -22,6 +26,14 @@ class Connections {
 
   getUser(user) {
     return this.connections[user];
+  }
+
+  addRoom(room) {
+    this.rooms[room.getId()] = room
+  }
+
+  getRoom(room) {
+    return this.rooms[room]
   }
 }
 

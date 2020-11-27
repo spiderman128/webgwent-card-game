@@ -3,6 +3,7 @@ import "../../css/Board.css";
 import SocketContext from "../../SocketContext";
 import BoardSide from "./BoardSide";
 import Overlay from "./Overlay";
+import MatchDetails from "./MatchDetails"
 
 function Board() {
   const DEFAULT_STATE = {
@@ -39,11 +40,12 @@ function Board() {
     },
   };
 
-  const { user, socket } = useContext(SocketContext);
+  const { user, socket, setRoom } = useContext(SocketContext);
   const [opponentLeft, setOpponentLeft] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
   const [sideInfo, setSideInfo] = useState(DEFAULT_STATE);
   const [currentPlayer, setCurrentPlayer] = useState("");
+  const [matchDetails, setMatchDetails] = useState({})
 
   const action = useRef("");
 
@@ -68,9 +70,12 @@ function Board() {
     });
     socket.on("gameover", (message) => {
       console.log("WE HAVE A WINNER");
-      console.log(message.winner);
-      setCurrentPlayer(message.winner);
       action.current = "gameOver";
+      setMatchDetails(message.matchInfo);
+      setCurrentPlayer(message.winner);
+      setRoom(null);
+      socket.emit("update")
+      
     });
 
     socket.on("firstPlayer", (message) => {
@@ -94,6 +99,7 @@ function Board() {
 
   return (
     <div className="Board">
+      {action.current === "gameOver" ? <MatchDetails match={matchDetails} />: <></>}
       {currentPlayer ? (
         <Overlay
           key={Math.random()}

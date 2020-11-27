@@ -47,7 +47,7 @@ class Player {
   }
 
   setRoom(room) {
-    this.room = room.id;
+    this.room = room ? room.getId() : null;
   }
 
   getRating() {
@@ -70,6 +70,10 @@ class Player {
       socket.join(room);
       socket.emit("update", self);
     };
+
+    this.leaveRoom = (room) => {
+      socket.leave(room)
+    }
 
     this.send = (event, data, room) => {
       room = room || null;

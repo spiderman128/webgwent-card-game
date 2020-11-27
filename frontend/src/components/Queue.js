@@ -10,7 +10,7 @@ import q3 from "../img/queue3.jpg";
 import q4 from "../img/queue4.jpg";
 
 function Queue() {
-  const { user, socket, setUser } = useContext(SocketContext);
+  const { user, socket, room, setUser } = useContext(SocketContext);
   const [inQueue, setInQueue] = useState(user.inQueue);
   const [currentBg, setCurrentBg] = useState({ background: "" });
   const history = useHistory();
@@ -63,7 +63,7 @@ function Queue() {
         animationIn="fadeInUp"
         isVisible={true}
       >
-        {user.room ? (
+        {room ? (
           <div className="Queue-inGame">
             <p className="Queue-inGame-text">
               You are in a game in progress (room id: {user.room})

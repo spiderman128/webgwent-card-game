@@ -26,5 +26,8 @@
     "socket.io": "^2.3.0",
     "socketio-jwt": "^4.6.2",
     "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
   }
 }

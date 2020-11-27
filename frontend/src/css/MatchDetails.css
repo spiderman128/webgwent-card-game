@@ -1,0 +1,149 @@
+.MatchDetails {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    border: 2px solid red;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.85);
+    -moz-animation: animate ease-in 2.5s forwards;
+    /* Firefox */
+    -webkit-animation: animate ease-in 2.5s forwards;
+    /* Safari and Chrome */
+    -o-animation: animate ease-in 2.5s forwards;
+    /* Opera */
+    animation: animate ease-in 2.5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
+@keyframes animate {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+.MatchDetails-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 75%;
+}
+
+.MatchDetails-container img {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.MatchDetails-details-container {
+    position: absolute;
+    height: 100%;
+    flex-direction: column;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.MatchDetails-details-text {
+    display: flex;
+    flex-direction: column;
+    transform: translateY(12.5em);
+    transition: transform 0.3s ease-in-out;
+}
+
+.MatchDetails-button {
+    position: absolute;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 69;
+    opacity: 0;
+    transform: translateY(-17.5em);
+    transition: all 0.3s;
+}
+
+.MatchDetails-title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #FFFFFF;
+    padding-bottom: 1em;
+}
+
+.MatchDetails-expanded {
+    display: flex;
+    justify-content: center;
+    background-color: #FFFFFF;
+    width: 100%;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.MatchDetails-expanded-player {
+    margin: 0 2.5em 2.5em 2.5em;
+}
+
+.MatchDetails-expanded-player span {
+    display: block;
+    height: 1.5em;
+}
+
+.added {
+    display: inline !important;
+    font-weight: 600;
+    color: #2e8d03;
+}
+
+.removed {
+    display: inline !important;
+    font-weight: 600;
+    color: #aa1602;
+}
+
+.MatchDetails-container:hover .MatchDetails-button {
+    opacity: 1;
+    transform: translateY(-7.5em);
+}
+
+.MatchDetails-button:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.9);
+    box-shadow: 1px 1px 25px 10px rgba(255, 195, 29, 0.4)
+}
+
+.MatchDetails-container:hover .MatchDetails-expanded{
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+}
+
+.MatchDetails-container:hover .MatchDetails-details-text {
+    transform: translateY(0);
+}
+
+.expanded-winner {
+    color: #ecbf36;
+}
+
+.expanded-loser {
+    color: #869080;
+}

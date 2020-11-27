@@ -5,7 +5,6 @@ class Room {
   constructor() {
     this.id = shortid.generate();
     this.players = [];
-    this.ready = {};
 
     this.max_players = 2;
     this.board = null;
@@ -26,20 +25,7 @@ class Room {
   }
 
   initializeBoard() {
-    this.board = new Board(this.id, this.players[0], this.players[1]);
-  }
-
-  setReady(user, r) {
-    let ready = r ? true : false;
-    this.ready[user.getId()] = ready;
-
-    if (this.bothReady()) {
-      this.board.init();
-    }
-  }
-
-  bothReady() {
-    return this.ready[this.players[0]] && this.ready[this.players[1]];
+    this.board = new Board(this.getId(), this.players[0], this.players[1]);
   }
 
   leave(user) {
@@ -63,6 +49,21 @@ class Room {
 
   getPlayer(uid) {
     return this.players[0].uid === uid ? this.players[0] : this.players[1];
+  }
+
+  destroy() {
+    if (this.players.length > 1) {
+      this.players[0].leaveRoom(this.getId())
+      this.players[0].setRoom(null)
+      this.players[1].leaveRoom(this.getId())
+      this.players[1].setRoom(null)
+    } else if (this.players.length === 1) {
+      this.players[0].leaveRoom(this.getId())
+      this.players[0].setRoom(null)
+    }
+    
+    globalThis.connections.removeRoom(this);
+
   }
 }
 

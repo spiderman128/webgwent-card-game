@@ -160,8 +160,6 @@ class Board {
 
     let loser = winner === this.side1 ? this.side2 : this.side1;
 
-    winner.player.rating += 25;
-    loser.player.rating -= 25;
 
     /* UTIL FUNCTION */
     function formatDate(date, format) {
@@ -185,6 +183,9 @@ class Board {
       date: date,
     };
 
+    winner.player.rating += 25;
+    loser.player.rating -= 25;
+
     /* THINK WHERE TO MOVE THIS LOGIC; */
     api.recordMatch(matchInfo);
 
@@ -198,9 +199,12 @@ class Board {
     });
     /* ******************************** */
 
+
     this.send("gameover", {
       matchInfo,
     });
+
+    globalThis.connections.rooms[this.id].destroy()
   }
 
   getWinner() {

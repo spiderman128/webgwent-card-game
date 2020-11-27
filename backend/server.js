@@ -43,7 +43,7 @@ io.use(
 
 io.on("connection", async function (socket) {
   console.log(`hello! ${JSON.stringify(socket.decoded_token)}`);
-  console.log(globalThis.matchmaker.connections.connections);
+  console.log(globalThis.matchmaker.connections.rooms);
   let user, room;
   let username = socket.decoded_token.username;
 
