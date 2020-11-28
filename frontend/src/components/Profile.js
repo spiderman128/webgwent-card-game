@@ -46,7 +46,7 @@ function Profile() {
             </div>
           </div>
         </div>
-      <MatchList />
+        <MatchList />
       </div>
     </Animated>
   ) : (

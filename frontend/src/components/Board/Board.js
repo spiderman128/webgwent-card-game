@@ -3,7 +3,7 @@ import "../../css/Board.css";
 import SocketContext from "../../SocketContext";
 import BoardSide from "./BoardSide";
 import Overlay from "./Overlay";
-import MatchDetails from "./MatchDetails"
+import MatchDetails from "./MatchDetails";
 
 function Board() {
   const DEFAULT_STATE = {
@@ -41,11 +41,11 @@ function Board() {
   };
 
   const { user, socket, setRoom } = useContext(SocketContext);
-  const [opponentLeft, setOpponentLeft] = useState(false);
+  // const [opponentLeft, setOpponentLeft] = useState(false);
   const [isWaiting, setIsWaiting] = useState(false);
   const [sideInfo, setSideInfo] = useState(DEFAULT_STATE);
   const [currentPlayer, setCurrentPlayer] = useState("");
-  const [matchDetails, setMatchDetails] = useState({})
+  const [matchDetails, setMatchDetails] = useState({});
 
   const action = useRef("");
 
@@ -57,25 +57,21 @@ function Board() {
     // });
     socket.on("updateBoard", (data) => {
       if (mounted) {
-        console.log("REFRESHING");
         setSideInfo(data);
         setIsWaiting(data.info.isWaiting);
       }
     });
     socket.on("passed", (message) => {
-      console.log("I PASSED!");
       if (mounted) {
         setIsWaiting(message.passed);
       }
     });
     socket.on("gameover", (message) => {
-      console.log("WE HAVE A WINNER");
       action.current = "gameOver";
       setMatchDetails(message.matchInfo);
       setCurrentPlayer(message.winner);
       setRoom(null);
-      socket.emit("update")
-      
+      socket.emit("update");
     });
 
     socket.on("firstPlayer", (message) => {
@@ -93,13 +89,15 @@ function Board() {
     return function cleanup() {
       mounted = false;
     };
-  }, [socket]);
-
-  console.log("I am rerendering with first player: ", currentPlayer);
+  }, [socket, setRoom]);
 
   return (
     <div className="Board">
-      {action.current === "gameOver" ? <MatchDetails match={matchDetails} />: <></>}
+      {action.current === "gameOver" ? (
+        <MatchDetails match={matchDetails} />
+      ) : (
+        <></>
+      )}
       {currentPlayer ? (
         <Overlay
           key={Math.random()}
@@ -109,7 +107,10 @@ function Board() {
       ) : (
         <></>
       )}
-      {opponentLeft ? (
+
+      {/* This modal will be used when the user disconnection functionality will be implemented */}
+
+      {/* {opponentLeft ? (
         <div id="open-modal" className="modal-window">
           <div>
             <h1>Warning</h1>
@@ -121,7 +122,9 @@ function Board() {
         </div>
       ) : (
         <></>
-      )}
+      )} */}
+
+      {/*  */}
 
       <BoardSide
         player={user.opponent}

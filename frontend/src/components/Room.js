@@ -20,7 +20,7 @@ function Room() {
     };
   }, [room, setRoom]);
 
-  return user.uid ? (
+  return user.room ? (
     <div className="Room">
       <Board />
     </div>

@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Animated } from "react-animated-css";
 import Api from "../Api";
 import Match from "./Match";
 import "../css/MatchList.css";
@@ -16,7 +15,7 @@ function MatchList() {
     };
 
     fetchMatches();
-  }, []);
+  }, [user]);
 
   return (
     <div className="MatchList">
@@ -26,7 +25,12 @@ function MatchList() {
       <div className="MatchList-container">
         <div className="MatchList-list">
           {matches.map((match, idx) => (
-            <Match key={match.id} match={match} order={idx + 1} user={user.username} />
+            <Match
+              key={match.id}
+              match={match}
+              order={idx + 1}
+              user={user.username}
+            />
           ))}
         </div>
       </div>

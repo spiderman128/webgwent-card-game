@@ -28,10 +28,6 @@ function Queue() {
       console.log("WE FOUND YOU A ROOM!");
       history.push(`/room/${roomId}`);
     });
-
-    socket.on("checkRoom", () => {
-      console.log("Message for a room!");
-    });
   }, [history, setUser, socket]);
 
   const queue = () => {
@@ -45,13 +41,11 @@ function Queue() {
   };
 
   const reconnect = () => {
-    console.log("REDIRECTING");
     socket.emit("rejoin");
     history.push(`/room/${user.room}`);
   };
 
   const abandon = () => {
-    console.log("ABANDONING");
     socket.emit("abandon");
   };
 

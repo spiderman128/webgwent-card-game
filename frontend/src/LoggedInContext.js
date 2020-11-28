@@ -11,16 +11,14 @@ const LoggedInProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   const logout = useCallback(() => {
-    console.log("LOGGING OUT!");
     removeToken();
     setLoggedIn(false);
     setUser(null);
-  }, [token]);
+  }, [removeToken]);
 
   const login = useCallback(() => {
     if (token) {
-      console.log(JWTDecode(token));
-      const { username, exp, iat } = JWTDecode(token);
+      const { username, exp } = JWTDecode(token);
 
       if (Math.floor(Date.now() / 1000) >= exp) {
         console.log("Token expired");
@@ -37,6 +35,8 @@ const LoggedInProvider = ({ children }) => {
 
       getUser();
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   return (

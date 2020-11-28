@@ -21,7 +21,7 @@ function Login() {
 
   async function loginUser(data) {
     let _token;
-    console.log(data);
+
     try {
       _token = await Api.login(data);
       setStatus("success");

@@ -21,7 +21,6 @@ function Register() {
   }
 
   async function registerUser(data) {
-    console.log("I am called");
     let tkn;
 
     try {

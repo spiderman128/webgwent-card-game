@@ -17,9 +17,6 @@ function NavBar() {
           <NavLink exact to="/queue" className="nav-link">
             Lobby
           </NavLink>
-          <NavLink exact to="/rules" className="nav-link">
-            Rules
-          </NavLink>
         </div>
         <div className="NavBar-links-auth">
           {loggedIn === false ? (
