@@ -6,7 +6,7 @@ import SocketContext from "./SocketContext";
 import { LoggedInContext } from "./LoggedInContext";
 import io from "socket.io-client";
 
-let socket = io.connect("http://localhost:8000", {
+let socket = io.connect(process.env.REACT_APP_URL || "http://localhost:8000", {
   query: `token=${localStorage.getItem("_token")}`,
 });
 
@@ -17,7 +17,7 @@ function App() {
   console.log("APP.JS | ROOM: ", room)
 
   const reconnect = () => {
-    socket = io.connect("http://localhost:8000", {
+    socket = io.connect(process.env.REACT_APP_URL || "http://localhost:8000", {
       query: `token=${localStorage.getItem("_token")}`,
     });
   };
