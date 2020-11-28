@@ -1,4 +1,51 @@
 .Match {
+    position: relative;
+    color: #3d3d3d;
+    left: 0;
+    font-size: 0.85rem;
+    transition: 0.25s;
+    padding: 0.5rem 2rem;
     display: flex;
-    background-color: #FFFFFF;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.Match:before {
+    content: '';
+    font-size: 4rem;
+    font-weight: bold;
+    color: #000;
+    width: 2rem;
+    opacity: 0.05;
+    transition: 0.25s;
+}
+
+.Match:hover {
+    background-color: #fafafa;
+    cursor: pointer;
+}
+
+.Match:hover:before {
+    opacity: 0.2;
+}
+
+.Match:hover {
+    left: 1rem;
+}
+
+.Match-winner {
+    display: inline-block;
+    display: flex;
+    flex-direction: column;
+}
+
+.Match-loser {
+    display: inline-block;
+    display: flex;
+    flex-direction: column;
+}
+
+.Match .you {
+    font-weight: 600;
 }

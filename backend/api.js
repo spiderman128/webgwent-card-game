@@ -172,7 +172,7 @@ class Api {
           ORDER BY date`,
       [user.rows[0].id]
     );
-    console.log(result.rows);
+    
     return result.rows;
   }
 

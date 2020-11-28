@@ -19,18 +19,18 @@ function MatchList() {
   }, []);
 
   return (
-    <Animated className="MatchList" animationIn="fadeInUp" isVisible={true}>
-      <div class="MatchList-heading">
+    <div className="MatchList">
+      <div className="MatchList-heading">
         <h1>Match History</h1>
       </div>
-      <div class="MatchList-container">
-        <div class="MatchList-list">
-          {matches.map((match) => (
-            <Match match={match} />
+      <div className="MatchList-container">
+        <div className="MatchList-list">
+          {matches.map((match, idx) => (
+            <Match key={match.id} match={match} order={idx + 1} user={user.username} />
           ))}
         </div>
       </div>
-    </Animated>
+    </div>
   );
 }
 
