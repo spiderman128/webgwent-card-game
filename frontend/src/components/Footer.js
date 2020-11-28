@@ -11,16 +11,16 @@ function Footer() {
       durationIn={1}
     >
       <div className="Footer-social">
-        <a href="www.google.com">
+        <a href="https://github.com/PZDuck">
           <i className="fa fa-github"></i>
         </a>
-        <a href="www.google.com">
+        <a href="https://www.facebook.com/peendos">
           <i className="fa fa-facebook"></i>
         </a>
-        <a href="www.google.com">
+        <a href="https://vk.com/peendos">
           <i className="fa fa-vk"></i>
         </a>
-        <a href="www.google.com">
+        <a href="https://t.me/peendos">
           <i className="fa fa-telegram"></i>
         </a>
       </div>
