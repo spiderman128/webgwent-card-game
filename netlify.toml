@@ -1,6 +1,6 @@
 [build]
   command = "npm build"
-  functions = "built-lambda" pp
+  functions = "built-lambda"
   publish = "build"
 
 [[redirects]]
