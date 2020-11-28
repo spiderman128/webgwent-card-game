@@ -1,5 +1,5 @@
 [build]
-  command = "npm run-script build"
+  command = "CI='' npm run-script build"
   functions = "built-lambda"
   publish = "build"
 
