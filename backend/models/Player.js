@@ -1,10 +1,7 @@
-const shortid = require("shortid");
-
 class Player {
   constructor(socket, user = {}) {
     this.socketId = socket.id;
 
-    this.uid = shortid.generate();
     this.username = user.username;
     this.email = user.email;
     this.rating = user.rating;
@@ -72,8 +69,8 @@ class Player {
     };
 
     this.leaveRoom = (room) => {
-      socket.leave(room)
-    }
+      socket.leave(room);
+    };
 
     this.send = (event, data, room) => {
       room = room || null;

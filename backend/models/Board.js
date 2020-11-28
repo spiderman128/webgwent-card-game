@@ -160,7 +160,6 @@ class Board {
 
     let loser = winner === this.side1 ? this.side2 : this.side1;
 
-
     /* UTIL FUNCTION */
     function formatDate(date, format) {
       const map = {
@@ -199,12 +198,11 @@ class Board {
     });
     /* ******************************** */
 
-
     this.send("gameover", {
       matchInfo,
     });
 
-    globalThis.connections.rooms[this.id].destroy()
+    globalThis.connections.rooms[this.id].destroy();
   }
 
   getWinner() {
