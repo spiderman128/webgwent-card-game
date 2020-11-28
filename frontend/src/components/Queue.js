@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Animated } from "react-animated-css";
 import SocketContext from "../SocketContext";
+import { LoggedInContext } from "../LoggedInContext";
 import NavBar from "./NavBar";
 import "../css/Queue.css";
 import q1 from "../img/queue1.jpg";
@@ -11,6 +12,7 @@ import q4 from "../img/queue4.jpg";
 
 function Queue() {
   const { user, socket, room, setUser } = useContext(SocketContext);
+  const { loggedIn } = useContext(LoggedInContext);
   const [inQueue, setInQueue] = useState(user.inQueue);
   const [currentBg, setCurrentBg] = useState({ background: "" });
   const history = useHistory();
@@ -57,7 +59,11 @@ function Queue() {
         animationIn="fadeInUp"
         isVisible={true}
       >
-        {room ? (
+        {!loggedIn ? (
+          <div className="Queue-LoggedInRequired">
+            You need to <Link to="/login">login</Link> first
+          </div>
+        ) : room ? (
           <div className="Queue-inGame">
             <p className="Queue-inGame-text">
               You are in a game in progress (room id: {user.room})

@@ -121,6 +121,12 @@
     }
 }
 
+.Queue-LoggedInRequired {
+    background-color: white;
+    font-size: 22px;
+    padding: 5em;
+}
+
 .Queue-inGame-text {
     font-size: 24px;
 }

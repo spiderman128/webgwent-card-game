@@ -1,0 +1,86 @@
+.Rules {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75%;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 2.5em 5em;
+    border: 2px solid #b78846;
+}
+
+.Rules-link {
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+    position: relative;
+    transition: all .3s cubic-bezier(.2, 0, 0, 1);
+    z-index: 1;
+}   
+
+.Rules-link:after {
+    content: '';
+    display: block;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    right: -0.25rem;
+    left: -0.25rem;
+    background-color: #000000;
+    transition: all .3s cubic-bezier(.2, 0, 0, 1);
+    transform-origin: bottom center;
+    z-index: -1;
+}
+
+.Rules-link:hover {
+    color: #FFFFFF;
+}
+
+.Rules-link:hover:after {
+    height: 100%;
+}
+
+.Rules-detailed {
+    text-align: left;
+    width: 50%;
+}
+
+.Rules-detailed ul > li, .Rules-detailed ul > li::before {
+    box-shadow: 0.25rem 0.25rem 0.6rem rgba(0, 0, 0, 0.05), 0 0.5rem 1.125rem rgba(75, 0, 0, 0.05);
+}
+.Rules-detailed ul {
+    counter-reset: gradient-counter;
+    list-style: none;
+    margin: 1.75rem 0;
+    padding-left: 1rem;
+}
+.Rules-detailed ul > li {
+    background: white;
+    border-radius: 0 0.5rem 0.5rem 0.5rem;
+    counter-increment: gradient-counter;
+    margin-top: 1rem;
+    min-height: 3rem;
+    padding: 1rem 1rem 1rem 3rem;
+    position: relative;
+}
+.Rules-detailed ul > li::before, .Rules-detailed ul > li::after {
+    background: linear-gradient(135deg, #fcff48 0%, #e78719 100%);
+    border-radius: 1rem 1rem 0 1rem;
+    content: '';
+    height: 2rem;
+    left: -1rem;
+    overflow: hidden;
+    position: absolute;
+    top: -1rem;
+    width: 2rem;
+}
+.Rules-detailed ul > li::before {
+    align-items: flex-end;
+    content: counter(gradient-counter);
+    color: #1d1f20;
+    display: flex;
+    font-weight: 900;
+    justify-content: flex-end;
+    padding: 0.125em 0.25em;
+    z-index: 1;
+}
