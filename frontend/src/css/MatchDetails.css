@@ -5,7 +5,7 @@
     right: 0;
     left: 0;
     margin: auto;
-    border: 2px solid red;
+    overflow: hidden;
     z-index: 999;
     background-color: rgba(0, 0, 0, 0.85);
     -moz-animation: animate ease-in 2.5s forwards;
