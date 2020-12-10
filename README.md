@@ -1,7 +1,7 @@
 # WebGwent #
 <a href="https://ibb.co/DVqj4C8"><img src="https://i.ibb.co/cgmsJFC/wgwent.png" alt="wgwent" border="0"></a>
+<a href="https://ibb.co/bWbTfW2"><img src="https://i.ibb.co/bWbTfW2/wgwent-board.png" alt="wgwent-board" border="0" /></a>
 <a href="https://ibb.co/bWbTfW2"><img src="https://i.ibb.co/xCFW4Cf/wgwent-board.png" alt="wgwent-board" border="0"></a>
-<a href="https://ibb.co/KWBKXpv"><img src="https://i.ibb.co/m4dNGVW/wgwent-search.png" alt="wgwent-search" border="0"></a>
 
 
 
