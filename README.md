@@ -1,6 +1,7 @@
 # WebGwent #
 <a href="https://ibb.co/DVqj4C8"><img src="https://i.ibb.co/cgmsJFC/wgwent.png" alt="wgwent" border="0"></a>
 <a href="https://ibb.co/KWBKXpv"><img src="https://i.ibb.co/m4dNGVW/wgwent-search.png" alt="wgwent-search" border="0"></a>
+<a href="https://ibb.co/bWbTfW2"><img src="https://i.ibb.co/xCFW4Cf/wgwent-board.png" alt="wgwent-board" border="0"></a>
 
 WebGwent is a web-based implementation of the popular turn-based card game from the Witcher 3. The game is played by two players both starting with 10 cards in their hand. When the round is over, the cards’ power scores are calculated to a total score. Player with the highest total number of power scores wins the round.
 
